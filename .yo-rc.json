@@ -36,6 +36,7 @@
     "enableTranslation": true,
     "nativeLanguage": "en",
     "languages": ["en", "tr"],
-    "blueprints": []
+    "blueprints": [],
+    "skipCheckLengthOfIdentifier": true
   }
 }
