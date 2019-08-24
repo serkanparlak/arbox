@@ -114,9 +114,9 @@ module.exports = (options) => webpackMerge(commonConfig({ env: ENV }), {
         new BrowserSyncPlugin({
             https: options.tls,
             host: 'localhost',
-            port: 9000,
+            port: 9001,
             proxy: {
-                target: `http${options.tls ? 's' : ''}://localhost:9060`,
+                target: `http${options.tls ? 's' : ''}://localhost:9061`,
                 proxyOptions: {
                     changeOrigin: false  //pass the Host header to the backend unchanged  https://github.com/Browsersync/browser-sync/issues/430
                 }

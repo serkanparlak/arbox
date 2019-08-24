@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  25.04.19 @burak.acma
+  Bu sayfa jbossun welcome-context eklemesini engelleyerek port tan sonra runtime name in girilmesini engeliyor.
+  örnek:
+        http://{ip}:{8080+(offset-port)}/{runtime-name} yerine
+        http://{ip}:{8080+(offset-port)}/
+
+        {8080+(offset-port)} açıklaması 8080 jboss default port numarasıdır.
+        Jboss ta server için eklenilen offset portu default porta eklenir.
+        offset portu 100 için; 8080+100 = 8180 dir.
+        artes-dev in master hostu için;
+                                        http://10.34.0.138:8180/
+                                                                  olacaktir.
+-->
+<jboss-web version="7.0"
+           xmlns="http://www.jboss.com/xml/ns/javaee"
+           xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+           xsi:schemaLocation="http://www.jboss.com/xml/ns/javaee http://www.jboss.org/schema/jbossas/jboss-web_7_0.xsd">
+
+    <context-root>/</context-root>
+
+</jboss-web>
