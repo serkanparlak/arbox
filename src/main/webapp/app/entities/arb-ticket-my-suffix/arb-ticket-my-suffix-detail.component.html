@@ -1,0 +1,51 @@
+<div class="row justify-content-center">
+    <div class="col-8">
+        <div *ngIf="arbTicket">
+            <h2><span jhiTranslate="arboxApp.arbTicket.detail.title">Arb Ticket</span> {{arbTicket.id}}</h2>
+            <hr>
+            <jhi-alert-error></jhi-alert-error>
+            <dl class="row-md jh-entity-details">
+                <dt><span jhiTranslate="arboxApp.arbTicket.priority">Priority</span></dt>
+                <dd>
+                    <span jhiTranslate="{{'arboxApp.Priority.' + arbTicket.priority}}">{{arbTicket.priority}}</span>
+                </dd>
+                <dt><span jhiTranslate="arboxApp.arbTicket.state">State</span></dt>
+                <dd>
+                    <span>{{arbTicket.state}}</span>
+                </dd>
+                <dt><span jhiTranslate="arboxApp.arbTicket.subject">Subject</span></dt>
+                <dd>
+                    <span>{{arbTicket.subject}}</span>
+                </dd>
+                <dt><span jhiTranslate="arboxApp.arbTicket.description">Description</span></dt>
+                <dd>
+                    <span>{{arbTicket.description}}</span>
+                </dd>
+                <dt><span jhiTranslate="arboxApp.arbTicket.date">Date</span></dt>
+                <dd>
+                    <span>{{arbTicket.date}}</span>
+                </dd>
+                <dt><span jhiTranslate="arboxApp.arbTicket.owner">Owner</span></dt>
+                <dd>
+                    {{arbTicket.ownerId}}
+                </dd>
+                <dt><span jhiTranslate="arboxApp.arbTicket.assignee">Assignee</span></dt>
+                <dd>
+                    {{arbTicket.assigneeId}}
+                </dd>
+            </dl>
+
+            <button type="submit"
+                    (click)="previousState()"
+                    class="btn btn-info">
+                <fa-icon [icon]="'arrow-left'"></fa-icon>&nbsp;<span jhiTranslate="entity.action.back"> Back</span>
+            </button>
+
+            <button type="button"
+                    [routerLink]="['/arb-ticket-my-suffix', arbTicket.id, 'edit']"
+                    class="btn btn-primary">
+                <fa-icon [icon]="'pencil-alt'"></fa-icon>&nbsp;<span jhiTranslate="entity.action.edit"> Edit</span>
+            </button>
+        </div>
+    </div>
+</div>

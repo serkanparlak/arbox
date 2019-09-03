@@ -1,0 +1,81 @@
+<div>
+    <h2 id="page-heading">
+        <span jhiTranslate="arboxApp.arbTicket.home.title">Arb Tickets</span>
+        <button id="jh-create-entity" class="btn btn-primary float-right jh-create-entity create-arb-ticket-my-suffix" [routerLink]="['/arb-ticket-my-suffix/new']">
+            <fa-icon [icon]="'plus'"></fa-icon>
+            <span  jhiTranslate="arboxApp.arbTicket.home.createLabel">
+            Create a new Arb Ticket
+            </span>
+        </button>
+    </h2>
+    <jhi-alert></jhi-alert>
+    <br/>
+    <div class="alert alert-warning" *ngIf="arbTickets?.length === 0">
+        <span jhiTranslate="arboxApp.arbTicket.home.notFound">No arbTickets found</span>
+    </div>
+    <div class="table-responsive" *ngIf="arbTickets?.length > 0">
+        <table class="table table-striped">
+            <thead>
+            <tr jhiSort [(predicate)]="predicate" [(ascending)]="reverse" [callback]="transition.bind(this)">
+            <th jhiSortBy="id"><span jhiTranslate="global.field.id">ID</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th jhiSortBy="priority"><span jhiTranslate="arboxApp.arbTicket.priority">Priority</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th jhiSortBy="state"><span jhiTranslate="arboxApp.arbTicket.state">State</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th jhiSortBy="subject"><span jhiTranslate="arboxApp.arbTicket.subject">Subject</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th jhiSortBy="description"><span jhiTranslate="arboxApp.arbTicket.description">Description</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th jhiSortBy="date"><span jhiTranslate="arboxApp.arbTicket.date">Date</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th jhiSortBy="ownerId"><span jhiTranslate="arboxApp.arbTicket.owner">Owner</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th jhiSortBy="assigneeId"><span jhiTranslate="arboxApp.arbTicket.assignee">Assignee</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th></th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr *ngFor="let arbTicket of arbTickets ;trackBy: trackId">
+                <td><a [routerLink]="['/arb-ticket-my-suffix', arbTicket.id, 'view' ]">{{arbTicket.id}}</a></td>
+                <td jhiTranslate="{{'arboxApp.Priority.' + arbTicket.priority}}">{{arbTicket.priority}}</td>
+                <td>{{arbTicket.state}}</td>
+                <td>{{arbTicket.subject}}</td>
+                <td>{{arbTicket.description}}</td>
+                <td>{{arbTicket.date | date:'medium'}}</td>
+                <td>
+                    {{arbTicket.ownerId}}
+                </td>
+                <td>
+                    {{arbTicket.assigneeId}}
+                </td>
+                <td class="text-right">
+                    <div class="btn-group">
+                        <button type="submit"
+                                [routerLink]="['/arb-ticket-my-suffix', arbTicket.id, 'view' ]"
+                                class="btn btn-info btn-sm">
+                            <fa-icon [icon]="'eye'"></fa-icon>
+                            <span class="d-none d-md-inline" jhiTranslate="entity.action.view">View</span>
+                        </button>
+                        <button type="submit"
+                                [routerLink]="['/arb-ticket-my-suffix', arbTicket.id, 'edit']"
+                                class="btn btn-primary btn-sm">
+                            <fa-icon [icon]="'pencil-alt'"></fa-icon>
+                            <span class="d-none d-md-inline" jhiTranslate="entity.action.edit">Edit</span>
+                        </button>
+                        <button type="submit"
+                                [routerLink]="['/arb-ticket-my-suffix', { outlets: { popup: arbTicket.id + '/delete'} }]"
+                                replaceUrl="true"
+                                queryParamsHandling="merge"
+                                class="btn btn-danger btn-sm">
+                            <fa-icon [icon]="'times'"></fa-icon>
+                            <span class="d-none d-md-inline" jhiTranslate="entity.action.delete">Delete</span>
+                        </button>
+                    </div>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+    <div [hidden]="arbTickets?.length === 0">
+        <div class="row justify-content-center">
+            <jhi-item-count [page]="page" [total]="totalItems" [maxSize]="5" [itemsPerPage]="itemsPerPage"></jhi-item-count>
+        </div>
+        <div class="row justify-content-center">
+            <ngb-pagination [collectionSize]="totalItems" [(page)]="page" [pageSize]="itemsPerPage" [maxSize]="5" [rotate]="true" [boundaryLinks]="true" (pageChange)="loadPage(page)"></ngb-pagination>
+        </div>
+    </div>
+</div>

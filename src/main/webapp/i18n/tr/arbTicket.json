@@ -1,0 +1,28 @@
+{
+  "arboxApp": {
+    "arbTicket": {
+      "home": {
+        "title": "Arb Tickets",
+        "createLabel": "Create a new Arb Ticket",
+        "createOrEditLabel": "Create or edit a Arb Ticket",
+        "notFound": "No Arb Tickets found"
+      },
+      "created": "A new Arb Ticket is created with identifier {{ param }}",
+      "updated": "A Arb Ticket is updated with identifier {{ param }}",
+      "deleted": "A Arb Ticket is deleted with identifier {{ param }}",
+      "delete": {
+        "question": "Are you sure you want to delete Arb Ticket {{ id }}?"
+      },
+      "detail": {
+        "title": "Arb Ticket"
+      },
+      "priority": "Priority",
+      "state": "State",
+      "subject": "Subject",
+      "description": "Description",
+      "date": "Date",
+      "owner": "Owner",
+      "assignee": "Assignee"
+    }
+  }
+}

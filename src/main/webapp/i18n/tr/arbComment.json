@@ -1,0 +1,26 @@
+{
+  "arboxApp": {
+    "arbComment": {
+      "home": {
+        "title": "Arb Comments",
+        "createLabel": "Create a new Arb Comment",
+        "createOrEditLabel": "Create or edit a Arb Comment",
+        "notFound": "No Arb Comments found"
+      },
+      "created": "A new Arb Comment is created with identifier {{ param }}",
+      "updated": "A Arb Comment is updated with identifier {{ param }}",
+      "deleted": "A Arb Comment is deleted with identifier {{ param }}",
+      "delete": {
+        "question": "Are you sure you want to delete Arb Comment {{ id }}?"
+      },
+      "detail": {
+        "title": "Arb Comment"
+      },
+      "date": "Date",
+      "content": "Content",
+      "isSolution": "Is Solution",
+      "ticket": "Ticket",
+      "owner": "Owner"
+    }
+  }
+}

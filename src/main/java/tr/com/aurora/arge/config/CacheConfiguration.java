@@ -43,6 +43,8 @@ public class CacheConfiguration {
             createCache(cm, tr.com.aurora.arge.domain.User.class.getName());
             createCache(cm, tr.com.aurora.arge.domain.Authority.class.getName());
             createCache(cm, tr.com.aurora.arge.domain.User.class.getName() + ".authorities");
+            createCache(cm, tr.com.aurora.arge.domain.ArbTicket.class.getName());
+            createCache(cm, tr.com.aurora.arge.domain.ArbComment.class.getName());
             // jhipster-needle-ehcache-add-entry
         };
     }

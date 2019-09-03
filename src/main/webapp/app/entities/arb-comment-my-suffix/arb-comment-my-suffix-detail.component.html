@@ -1,0 +1,45 @@
+<div class="row justify-content-center">
+    <div class="col-8">
+        <div *ngIf="arbComment">
+            <h2><span jhiTranslate="arboxApp.arbComment.detail.title">Arb Comment</span> {{arbComment.id}}</h2>
+            <hr>
+            <jhi-alert-error></jhi-alert-error>
+            <dl class="row-md jh-entity-details">
+                <dt><span jhiTranslate="arboxApp.arbComment.date">Date</span></dt>
+                <dd>
+                    <span>{{arbComment.date}}</span>
+                </dd>
+                <dt><span jhiTranslate="arboxApp.arbComment.content">Content</span></dt>
+                <dd>
+                    <span>{{arbComment.content}}</span>
+                </dd>
+                <dt><span jhiTranslate="arboxApp.arbComment.isSolution">Is Solution</span></dt>
+                <dd>
+                    <span>{{arbComment.isSolution}}</span>
+                </dd>
+                <dt><span jhiTranslate="arboxApp.arbComment.ticket">Ticket</span></dt>
+                <dd>
+                    <div *ngIf="arbComment.ticketId">
+                        <a [routerLink]="['/arb-ticket-my-suffix', arbComment.ticketId, 'view']">{{arbComment.ticketId}}</a>
+                    </div>
+                </dd>
+                <dt><span jhiTranslate="arboxApp.arbComment.owner">Owner</span></dt>
+                <dd>
+                    {{arbComment.ownerId}}
+                </dd>
+            </dl>
+
+            <button type="submit"
+                    (click)="previousState()"
+                    class="btn btn-info">
+                <fa-icon [icon]="'arrow-left'"></fa-icon>&nbsp;<span jhiTranslate="entity.action.back"> Back</span>
+            </button>
+
+            <button type="button"
+                    [routerLink]="['/arb-comment-my-suffix', arbComment.id, 'edit']"
+                    class="btn btn-primary">
+                <fa-icon [icon]="'pencil-alt'"></fa-icon>&nbsp;<span jhiTranslate="entity.action.edit"> Edit</span>
+            </button>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,10 @@
+{
+  "arboxApp": {
+    "Priority": {
+      "null": "",
+      "High": "High",
+      "Medium": "Medium",
+      "Low": "Low"
+    }
+  }
+}

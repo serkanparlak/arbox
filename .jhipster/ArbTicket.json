@@ -1,0 +1,52 @@
+{
+    "name": "ArbTicket",
+    "fields": [
+        {
+            "fieldName": "priority",
+            "fieldType": "Priority",
+            "fieldValues": "High,Medium,Low"
+        },
+        {
+            "fieldName": "state",
+            "fieldType": "Boolean"
+        },
+        {
+            "fieldName": "subject",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "description",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "date",
+            "fieldType": "Instant"
+        }
+    ],
+    "relationships": [
+        {
+            "relationshipType": "many-to-one",
+            "otherEntityName": "user",
+            "otherEntityRelationshipName": "arbTicket",
+            "relationshipName": "owner",
+            "otherEntityField": "id"
+        },
+        {
+            "relationshipType": "many-to-one",
+            "otherEntityName": "user",
+            "otherEntityRelationshipName": "arbTicket",
+            "relationshipName": "assignee",
+            "otherEntityField": "id"
+        }
+    ],
+    "changelogDate": "20190903122809",
+    "entityTableName": "arb_ticket",
+    "dto": "mapstruct",
+    "pagination": "pagination",
+    "service": "serviceImpl",
+    "jpaMetamodelFiltering": false,
+    "fluentMethods": true,
+    "clientRootFolder": "",
+    "applications": "*",
+    "angularJSSuffix": "mySuffix"
+}
