@@ -1,5 +1,7 @@
 package tr.com.aurora.arge.service.impl;
 
+import tr.com.aurora.arge.domain.ArbComment;
+import tr.com.aurora.arge.repository.ArbCommentRepository;
 import tr.com.aurora.arge.service.ArbTicketService;
 import tr.com.aurora.arge.domain.ArbTicket;
 import tr.com.aurora.arge.repository.ArbTicketRepository;
@@ -13,6 +15,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
 import java.util.Optional;
 
 /**
@@ -26,10 +29,13 @@ public class ArbTicketServiceImpl implements ArbTicketService {
 
     private final ArbTicketRepository arbTicketRepository;
 
+    private final ArbCommentRepository arbCommentRepository;
+
     private final ArbTicketMapper arbTicketMapper;
 
-    public ArbTicketServiceImpl(ArbTicketRepository arbTicketRepository, ArbTicketMapper arbTicketMapper) {
+    public ArbTicketServiceImpl(ArbTicketRepository arbTicketRepository, ArbCommentRepository arbCommentRepository, ArbTicketMapper arbTicketMapper) {
         this.arbTicketRepository = arbTicketRepository;
+        this.arbCommentRepository = arbCommentRepository;
         this.arbTicketMapper = arbTicketMapper;
     }
 
@@ -61,6 +67,30 @@ public class ArbTicketServiceImpl implements ArbTicketService {
             .map(arbTicketMapper::toDto);
     }
 
+    @Override
+    public Page<ArbTicketDTO> getAllByState(Boolean state ,Pageable pageable) {
+
+        return arbTicketRepository.findAllByState(state, pageable)
+            .map(arbTicketMapper::toDto);
+    }
+
+    @Override
+    public Page<ArbTicketDTO> getAllRecentlyAnswered(Pageable pageable) {
+        return arbTicketRepository.findCommentedLatest(pageable)
+            .map(arbTicketMapper::toDto);
+    }
+
+    @Override
+    public Page<ArbTicketDTO> getAllCreatedByMe(Long ownerId, Pageable pageable) {
+        return arbTicketRepository.findAllByOwnerId(ownerId, pageable)
+            .map(arbTicketMapper::toDto);
+    }
+
+    @Override
+    public Page<ArbTicketDTO> getAllAssignedToMe(Long assigneeId, Pageable pageable) {
+        return arbTicketRepository.findAllByAssigneeId(assigneeId, pageable)
+            .map(arbTicketMapper::toDto);
+    }
 
     /**
      * Get one arbTicket by id.
@@ -86,4 +116,5 @@ public class ArbTicketServiceImpl implements ArbTicketService {
         log.debug("Request to delete ArbTicket : {}", id);
         arbTicketRepository.deleteById(id);
     }
+
 }

@@ -87,15 +87,53 @@ public class ArbTicketResource {
     /**
      * {@code GET  /arb-tickets} : get all the arbTickets.
      *
-
      * @param pageable the pagination information.
-
      * @return the {@link ResponseEntity} with status {@code 200 (OK)} and the list of arbTickets in body.
      */
     @GetMapping("/arb-tickets")
     public ResponseEntity<List<ArbTicketDTO>> getAllArbTickets(Pageable pageable) {
         log.debug("REST request to get a page of ArbTickets");
         Page<ArbTicketDTO> page = arbTicketService.findAll(pageable);
+        HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(ServletUriComponentsBuilder.fromCurrentRequest(), page);
+        return ResponseEntity.ok().headers(headers).body(page.getContent());
+    }
+
+    @GetMapping("/arb-tickets/unsolved")
+    public ResponseEntity<List<ArbTicketDTO>> getAllUnsolvedArbTickets(Pageable pageable) {
+        log.debug("REST request to get a page of unsolved ArbTickets");
+        Page<ArbTicketDTO> page = arbTicketService.getAllByState(false, pageable);
+        HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(ServletUriComponentsBuilder.fromCurrentRequest(), page);
+        return ResponseEntity.ok().headers(headers).body(page.getContent());
+    }
+
+    @GetMapping("/arb-tickets/solved")
+    public ResponseEntity<List<ArbTicketDTO>> getAllSolvedArbTickets(Pageable pageable) {
+        log.debug("REST request to get a page of solved ArbTickets");
+        Page<ArbTicketDTO> page = arbTicketService.getAllByState(true, pageable);
+        HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(ServletUriComponentsBuilder.fromCurrentRequest(), page);
+        return ResponseEntity.ok().headers(headers).body(page.getContent());
+    }
+
+    @GetMapping("/arb-tickets/recentlyanswered")
+    public ResponseEntity<List<ArbTicketDTO>> getAllRecentlyAnsweredArbTickets(Pageable pageable) {
+        log.debug("REST request to get a page of solved ArbTickets");
+        Page<ArbTicketDTO> page = arbTicketService.getAllRecentlyAnswered(pageable);
+        HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(ServletUriComponentsBuilder.fromCurrentRequest(), page);
+        return ResponseEntity.ok().headers(headers).body(page.getContent());
+    }
+
+    @GetMapping("/arb-tickets/createdbyme/{ownerId}")
+    public ResponseEntity<List<ArbTicketDTO>> getAllCreatedByMeArbTickets(@PathVariable Long ownerId, Pageable pageable) {
+        log.debug("REST request to get a page of created by me ArbTickets");
+        Page<ArbTicketDTO> page = arbTicketService.getAllCreatedByMe(ownerId, pageable);
+        HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(ServletUriComponentsBuilder.fromCurrentRequest(), page);
+        return ResponseEntity.ok().headers(headers).body(page.getContent());
+    }
+
+    @GetMapping("/arb-tickets/assignedtome/{assigneeId}")
+    public ResponseEntity<List<ArbTicketDTO>> getAllAssignedToMeArbTickets(@PathVariable Long assigneeId, Pageable pageable) {
+        log.debug("REST request to get a page of assigned to me ArbTickets");
+        Page<ArbTicketDTO> page = arbTicketService.getAllAssignedToMe(assigneeId, pageable);
         HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(ServletUriComponentsBuilder.fromCurrentRequest(), page);
         return ResponseEntity.ok().headers(headers).body(page.getContent());
     }

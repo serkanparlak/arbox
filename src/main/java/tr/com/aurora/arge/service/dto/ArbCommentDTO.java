@@ -21,6 +21,8 @@ public class ArbCommentDTO implements Serializable {
 
     private Long ownerId;
 
+    private String ownerUsername;
+
     public Long getId() {
         return id;
     }
@@ -100,5 +102,13 @@ public class ArbCommentDTO implements Serializable {
             ", ticket=" + getTicketId() +
             ", owner=" + getOwnerId() +
             "}";
+    }
+
+    public String getOwnerUsername() {
+        return ownerUsername;
+    }
+
+    public void setOwnerUsername(String ownerUsername) {
+        this.ownerUsername = ownerUsername;
     }
 }

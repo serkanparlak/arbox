@@ -12,7 +12,9 @@ import org.mapstruct.*;
 public interface ArbTicketMapper extends EntityMapper<ArbTicketDTO, ArbTicket> {
 
     @Mapping(source = "owner.id", target = "ownerId")
+    @Mapping(source = "owner.login", target = "ownerUsername")
     @Mapping(source = "assignee.id", target = "assigneeId")
+    @Mapping(source = "assignee.login", target = "assigneeUsername")
     ArbTicketDTO toDto(ArbTicket arbTicket);
 
     @Mapping(source = "ownerId", target = "owner")

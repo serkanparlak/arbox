@@ -1,0 +1,39 @@
+entity ArbTicket {
+    priority Priority,
+    state Boolean,
+    subject String,
+    description String,
+    date Instant
+}
+
+entity ArbComment {
+    date Instant,
+    content String,
+    isSolution Boolean
+}
+
+enum Priority {
+    High, Medium, Low
+}
+// defining multiple OneToMany relationships with comments
+
+
+relationship ManyToOne {
+	ArbTicket{owner} to	User,
+    ArbTicket{assignee} to	User,
+    ArbComment{ticket} to ArbTicket,
+    ArbComment{owner} to User
+}
+
+// Set pagination options
+paginate * with pagination
+// paginate * with pagination
+
+// Use Data Transfert Objects (DTO)
+dto * with mapstruct
+// Set service options to all except few
+service * with serviceImpl
+//service all with serviceImpl except ArbUser, ArbTicket, ArbComment // hariç varsa eklemek için
+
+// Set an angular suffix
+angularSuffix * with mySuffix

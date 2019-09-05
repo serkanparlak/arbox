@@ -100,6 +100,14 @@ public class ArbCommentResource {
         return ResponseEntity.ok().headers(headers).body(page.getContent());
     }
 
+    @GetMapping("/arb-comments/:{ticketId}")
+    public ResponseEntity<List<ArbCommentDTO>> getAllArbCommentsByTicketId(@PathVariable Long ticketId ,Pageable pageable) {
+        log.debug("REST request to get a page of ArbComments by ticketId");
+        Page<ArbCommentDTO> page = arbCommentService.getAllByTicketId(ticketId ,pageable);
+        HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(ServletUriComponentsBuilder.fromCurrentRequest(), page);
+        return ResponseEntity.ok().headers(headers).body(page.getContent());
+    }
+
     /**
      * {@code GET  /arb-comments/:id} : get the "id" arbComment.
      *

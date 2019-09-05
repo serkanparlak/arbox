@@ -28,6 +28,7 @@ public interface ArbCommentService {
      */
     Page<ArbCommentDTO> findAll(Pageable pageable);
 
+    Page<ArbCommentDTO> getAllByTicketId(Long ticketId, Pageable pageable);
 
     /**
      * Get the "id" arbComment.
@@ -43,4 +44,5 @@ public interface ArbCommentService {
      * @param id the id of the entity.
      */
     void delete(Long id);
+
 }

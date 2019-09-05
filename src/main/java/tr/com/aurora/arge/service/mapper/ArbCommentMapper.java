@@ -13,6 +13,7 @@ public interface ArbCommentMapper extends EntityMapper<ArbCommentDTO, ArbComment
 
     @Mapping(source = "ticket.id", target = "ticketId")
     @Mapping(source = "owner.id", target = "ownerId")
+    @Mapping(source = "owner.login", target = "ownerUsername")
     ArbCommentDTO toDto(ArbComment arbComment);
 
     @Mapping(source = "ticketId", target = "ticket")

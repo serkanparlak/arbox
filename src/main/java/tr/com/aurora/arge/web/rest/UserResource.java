@@ -160,6 +160,14 @@ public class UserResource {
         return userService.getAuthorities();
     }
 
+    @GetMapping("/users/:{id}")
+    public ResponseEntity<UserDTO> getUserById(@PathVariable Long id) {
+        log.debug("REST request to get User : {}", id);
+        return ResponseUtil.wrapOrNotFound(
+            userService.getUserWithAuthorities(id)
+                .map(UserDTO::new));
+    }
+
     /**
      * {@code GET /users/:login} : get the "login" user.
      *
@@ -173,6 +181,7 @@ public class UserResource {
             userService.getUserWithAuthoritiesByLogin(login)
                 .map(UserDTO::new));
     }
+
 
     /**
      * {@code DELETE /users/:login} : delete the "login" User.

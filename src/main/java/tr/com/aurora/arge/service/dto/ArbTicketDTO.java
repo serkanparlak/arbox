@@ -24,7 +24,11 @@ public class ArbTicketDTO implements Serializable {
 
     private Long ownerId;
 
+    private String ownerUsername; // user.login
+
     private Long assigneeId;
+
+    private String assigneeUsername; // user.login
 
     public Long getId() {
         return id;
@@ -88,6 +92,22 @@ public class ArbTicketDTO implements Serializable {
 
     public void setAssigneeId(Long userId) {
         this.assigneeId = userId;
+    }
+
+    public String getOwnerUsername() {
+        return ownerUsername;
+    }
+
+    public void setOwnerUsername(String ownerUsername) {
+        this.ownerUsername = ownerUsername;
+    }
+
+    public String getAssigneeUsername() {
+        return assigneeUsername;
+    }
+
+    public void setAssigneeUsername(String assigneeUsername) {
+        this.assigneeUsername = assigneeUsername;
     }
 
     @Override

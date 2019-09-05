@@ -61,6 +61,12 @@ public class ArbCommentServiceImpl implements ArbCommentService {
             .map(arbCommentMapper::toDto);
     }
 
+    @Override
+    public Page<ArbCommentDTO> getAllByTicketId(Long ticketId, Pageable pageable) {
+        return arbCommentRepository.findAllByTicketIdOrderByDateDesc(ticketId, pageable)
+            .map(arbCommentMapper::toDto);
+    }
+
 
     /**
      * Get one arbComment by id.

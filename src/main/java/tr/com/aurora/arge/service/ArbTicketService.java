@@ -28,6 +28,13 @@ public interface ArbTicketService {
      */
     Page<ArbTicketDTO> findAll(Pageable pageable);
 
+    Page<ArbTicketDTO> getAllByState(Boolean state ,Pageable pageable);
+
+    Page<ArbTicketDTO> getAllRecentlyAnswered(Pageable pageable);
+
+    Page<ArbTicketDTO> getAllCreatedByMe(Long ownerId, Pageable pageable);
+
+    Page<ArbTicketDTO> getAllAssignedToMe(Long assigneeId, Pageable pageable);
 
     /**
      * Get the "id" arbTicket.
@@ -43,4 +50,5 @@ public interface ArbTicketService {
      * @param id the id of the entity.
      */
     void delete(Long id);
+
 }
