@@ -70,7 +70,7 @@ public class ArbTicketServiceImpl implements ArbTicketService {
     @Override
     public Page<ArbTicketDTO> getAllByState(Boolean state ,Pageable pageable) {
 
-        return arbTicketRepository.findAllByState(state, pageable)
+        return arbTicketRepository.findAllByStateOrderByDateDesc(state, pageable)
             .map(arbTicketMapper::toDto);
     }
 
@@ -82,13 +82,13 @@ public class ArbTicketServiceImpl implements ArbTicketService {
 
     @Override
     public Page<ArbTicketDTO> getAllCreatedByMe(Long ownerId, Pageable pageable) {
-        return arbTicketRepository.findAllByOwnerId(ownerId, pageable)
+        return arbTicketRepository.findAllByOwnerIdOrderByDateDesc(ownerId, pageable)
             .map(arbTicketMapper::toDto);
     }
 
     @Override
     public Page<ArbTicketDTO> getAllAssignedToMe(Long assigneeId, Pageable pageable) {
-        return arbTicketRepository.findAllByAssigneeId(assigneeId, pageable)
+        return arbTicketRepository.findAllByAssigneeIdOrderByDateDesc(assigneeId, pageable)
             .map(arbTicketMapper::toDto);
     }
 

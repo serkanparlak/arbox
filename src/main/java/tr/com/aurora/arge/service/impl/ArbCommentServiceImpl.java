@@ -63,7 +63,7 @@ public class ArbCommentServiceImpl implements ArbCommentService {
 
     @Override
     public Page<ArbCommentDTO> getAllByTicketId(Long ticketId, Pageable pageable) {
-        return arbCommentRepository.findAllByTicketIdOrderByDateDesc(ticketId, pageable)
+        return arbCommentRepository.findAllByTicketIdOrderByDate(ticketId, pageable)
             .map(arbCommentMapper::toDto);
     }
 
@@ -91,5 +91,10 @@ public class ArbCommentServiceImpl implements ArbCommentService {
     public void delete(Long id) {
         log.debug("Request to delete ArbComment : {}", id);
         arbCommentRepository.deleteById(id);
+    }
+
+    @Override
+    public void deleteByTicketId(Long ticketId) {
+        arbCommentRepository.deleteAllByTicketId(ticketId);
     }
 }

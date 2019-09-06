@@ -21,12 +21,13 @@ public interface ArbTicketRepository extends JpaRepository<ArbTicket, Long> {
     @Query("select arbTicket from ArbTicket arbTicket where arbTicket.assignee.login = ?#{principal.username}")
     List<ArbTicket> findByAssigneeIsCurrentUser();
 
-    Page<ArbTicket> findAllByState(Boolean state, Pageable pageable);
+    Page<ArbTicket> findAllByStateOrderByDateDesc(Boolean state, Pageable pageable);
 
-    Page<ArbTicket> findAllByOwnerId(Long ownerId ,Pageable pageable);
+    Page<ArbTicket> findAllByOwnerIdOrderByDateDesc(Long ownerId ,Pageable pageable);
 
-    Page<ArbTicket> findAllByAssigneeId(Long assigneeId ,Pageable pageable);
+    Page<ArbTicket> findAllByAssigneeIdOrderByDateDesc(Long assigneeId ,Pageable pageable);
 
-    @Query(value = "select t from ArbTicket t inner join ArbComment c on  c.ticket = t order by c.date desc")
+    String recentlyQuery = "select a.* from arb_ticket a inner join (select distinct on (c.ticket_id) c.ticket_id, c.date from (select * from arb_comment order by date) c) tids on a.id = tids.ticket_id order by tids.date desc";
+    @Query(value = recentlyQuery, nativeQuery = true)
     Page<ArbTicket> findCommentedLatest(Pageable pageable);
 }

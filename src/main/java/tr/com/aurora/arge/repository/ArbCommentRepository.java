@@ -15,9 +15,12 @@ import java.util.List;
 @Repository
 public interface ArbCommentRepository extends JpaRepository<ArbComment, Long> {
 
-    @Query("select arbComment from ArbComment arbComment where arbComment.owner.login = ?#{principal.username}")
+    @Query(value = "select arbComment from ArbComment arbComment where arbComment.owner.login = ?#{principal.username}")
     List<ArbComment> findByOwnerIsCurrentUser();
 
-    Page<ArbComment> findAllByTicketIdOrderByDateDesc(Long ticketId, Pageable pageable);
+    Page<ArbComment> findAllByTicketIdOrderByDate(Long ticketId, Pageable pageable);
+
+    void deleteAllByTicketId(Long ticketId);
+
 
 }

@@ -45,4 +45,5 @@ public interface ArbCommentService {
      */
     void delete(Long id);
 
+    void deleteByTicketId(Long ticketId);
 }

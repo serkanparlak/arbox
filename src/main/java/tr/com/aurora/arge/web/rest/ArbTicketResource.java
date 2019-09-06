@@ -70,10 +70,9 @@ public class ArbTicketResource {
      * @return the {@link ResponseEntity} with status {@code 200 (OK)} and with body the updated arbTicketDTO,
      * or with status {@code 400 (Bad Request)} if the arbTicketDTO is not valid,
      * or with status {@code 500 (Internal Server Error)} if the arbTicketDTO couldn't be updated.
-     * @throws URISyntaxException if the Location URI syntax is incorrect.
      */
     @PutMapping("/arb-tickets")
-    public ResponseEntity<ArbTicketDTO> updateArbTicket(@RequestBody ArbTicketDTO arbTicketDTO) throws URISyntaxException {
+    public ResponseEntity<ArbTicketDTO> updateArbTicket(@RequestBody ArbTicketDTO arbTicketDTO) {
         log.debug("REST request to update ArbTicket : {}", arbTicketDTO);
         if (arbTicketDTO.getId() == null) {
             throw new BadRequestAlertException("Invalid id", ENTITY_NAME, "idnull");
@@ -98,22 +97,31 @@ public class ArbTicketResource {
         return ResponseEntity.ok().headers(headers).body(page.getContent());
     }
 
+    /*
+    * {GET  /arb-tickets/unsolved} : get all the unsolved arbTickets.
+    */
     @GetMapping("/arb-tickets/unsolved")
     public ResponseEntity<List<ArbTicketDTO>> getAllUnsolvedArbTickets(Pageable pageable) {
         log.debug("REST request to get a page of unsolved ArbTickets");
-        Page<ArbTicketDTO> page = arbTicketService.getAllByState(false, pageable);
-        HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(ServletUriComponentsBuilder.fromCurrentRequest(), page);
-        return ResponseEntity.ok().headers(headers).body(page.getContent());
-    }
-
-    @GetMapping("/arb-tickets/solved")
-    public ResponseEntity<List<ArbTicketDTO>> getAllSolvedArbTickets(Pageable pageable) {
-        log.debug("REST request to get a page of solved ArbTickets");
         Page<ArbTicketDTO> page = arbTicketService.getAllByState(true, pageable);
         HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(ServletUriComponentsBuilder.fromCurrentRequest(), page);
         return ResponseEntity.ok().headers(headers).body(page.getContent());
     }
 
+    /*
+     * {GET  /arb-tickets/solved} : get all the solved arbTickets.
+     */
+    @GetMapping("/arb-tickets/solved")
+    public ResponseEntity<List<ArbTicketDTO>> getAllSolvedArbTickets(Pageable pageable) {
+        log.debug("REST request to get a page of solved ArbTickets");
+        Page<ArbTicketDTO> page = arbTicketService.getAllByState(false, pageable);
+        HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(ServletUriComponentsBuilder.fromCurrentRequest(), page);
+        return ResponseEntity.ok().headers(headers).body(page.getContent());
+    }
+
+    /*
+     * {GET  /arb-tickets/recentlyanswered} : get all the recently answered arbTickets.
+     */
     @GetMapping("/arb-tickets/recentlyanswered")
     public ResponseEntity<List<ArbTicketDTO>> getAllRecentlyAnsweredArbTickets(Pageable pageable) {
         log.debug("REST request to get a page of solved ArbTickets");
@@ -122,6 +130,9 @@ public class ArbTicketResource {
         return ResponseEntity.ok().headers(headers).body(page.getContent());
     }
 
+    /*
+     * {GET  /arb-tickets/createdbyme/:ownerId} : get all the own arbTickets.
+     */
     @GetMapping("/arb-tickets/createdbyme/{ownerId}")
     public ResponseEntity<List<ArbTicketDTO>> getAllCreatedByMeArbTickets(@PathVariable Long ownerId, Pageable pageable) {
         log.debug("REST request to get a page of created by me ArbTickets");
@@ -130,6 +141,9 @@ public class ArbTicketResource {
         return ResponseEntity.ok().headers(headers).body(page.getContent());
     }
 
+    /*
+     * {GET  /arb-tickets/assignedtome/:assigneeId} : get all the assigned to me arbTickets.
+     */
     @GetMapping("/arb-tickets/assignedtome/{assigneeId}")
     public ResponseEntity<List<ArbTicketDTO>> getAllAssignedToMeArbTickets(@PathVariable Long assigneeId, Pageable pageable) {
         log.debug("REST request to get a page of assigned to me ArbTickets");

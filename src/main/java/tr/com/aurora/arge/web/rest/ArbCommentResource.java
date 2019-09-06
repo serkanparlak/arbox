@@ -70,10 +70,9 @@ public class ArbCommentResource {
      * @return the {@link ResponseEntity} with status {@code 200 (OK)} and with body the updated arbCommentDTO,
      * or with status {@code 400 (Bad Request)} if the arbCommentDTO is not valid,
      * or with status {@code 500 (Internal Server Error)} if the arbCommentDTO couldn't be updated.
-     * @throws URISyntaxException if the Location URI syntax is incorrect.
      */
     @PutMapping("/arb-comments")
-    public ResponseEntity<ArbCommentDTO> updateArbComment(@RequestBody ArbCommentDTO arbCommentDTO) throws URISyntaxException {
+    public ResponseEntity<ArbCommentDTO> updateArbComment(@RequestBody ArbCommentDTO arbCommentDTO) {
         log.debug("REST request to update ArbComment : {}", arbCommentDTO);
         if (arbCommentDTO.getId() == null) {
             throw new BadRequestAlertException("Invalid id", ENTITY_NAME, "idnull");
@@ -132,5 +131,12 @@ public class ArbCommentResource {
         log.debug("REST request to delete ArbComment : {}", id);
         arbCommentService.delete(id);
         return ResponseEntity.noContent().headers(HeaderUtil.createEntityDeletionAlert(applicationName, true, ENTITY_NAME, id.toString())).build();
+    }
+
+    @DeleteMapping("/arb-comments-byticketid/{ticketId}")
+    public ResponseEntity<Void> deleteArbCommentByTicketId(@PathVariable Long ticketId) {
+        log.debug("REST request to delete ArbComment : {}", ticketId);
+        arbCommentService.deleteByTicketId(ticketId);
+        return ResponseEntity.noContent().headers(HeaderUtil.createEntityDeletionAlert(applicationName, true, ENTITY_NAME, ticketId.toString())).build();
     }
 }
