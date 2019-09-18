@@ -1,11 +1,34 @@
 <jhi-page-ribbon></jhi-page-ribbon>
-<div>
-    <router-outlet name="navbar"></router-outlet>
-</div>
-<div class="container-fluid">
-    <div class="card jh-card">
-        <router-outlet></router-outlet>
-        <router-outlet name="popup"></router-outlet>
+
+<div *ngIf="adminIsActive; else arb">
+    <div>
+        <router-outlet name="navbar"></router-outlet>
     </div>
-    <jhi-footer></jhi-footer>
+
+    <div class="container-fluid">
+        <div class="card jh-card">
+            <router-outlet></router-outlet>
+            <router-outlet name="popup"></router-outlet>
+        </div>
+        <jhi-footer></jhi-footer>
+    </div>
 </div>
+
+<ng-template #arb>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12 col-sm-12 mt-5 mb-4">
+                <jhi-arb-navbar></jhi-arb-navbar>
+            </div>
+            <div class="col-md-4 col-sm-12">
+                <jhi-left-menu></jhi-left-menu>
+            </div>
+            <div class="col-md-8 col-sm-12">
+                <router-outlet></router-outlet>
+            </div>
+        </div>
+        <ng-template #notAuthenticate>
+            <router-outlet></router-outlet>
+        </ng-template>
+    </div>
+</ng-template>

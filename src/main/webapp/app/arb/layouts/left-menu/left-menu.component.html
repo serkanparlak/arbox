@@ -1,0 +1,38 @@
+<button class="btnn btnn-icon justify-content-center">
+    <i class="fa fa-plus-circle"></i>
+    New Ticket
+</button>
+
+<p class="lead mt-4 font-weight-normal">Ticket Navigator</p>
+<div class="list-group" id="navigate-list">
+    <a href="javascript:void(0)"
+       class="list-group-item list-group-item-action leftmenu_top_radius d-flex justify-content-between"
+       filter_key="allUnsolved">
+        Unsolved Tickets
+        <span class="badge badge-info badge-pill" id="unsolved_span">0</span>
+    </a>
+    <a href="javascript:void(0)"
+       class="list-group-item list-group-item-action d-flex justify-content-between"
+       filter_key="allSolved">
+        Solved Tickets
+        <span class="badge badge-info badge-pill" id="solved_span">0</span>
+    </a>
+    <a href="javascript:void(0)"
+       class="list-group-item list-group-item-action leftmenu_bottom_radius d-flex justify-content-between"
+       filter_key="recentlyAnswered">
+        Recently Answered
+        <span class="badge badge-info badge-pill" id="recently_span">0</span>
+    </a>
+    <a href="javascript:void(0)"
+       class="list-group-item list-group-item-action leftmenu_top_radius mt-3 d-flex justify-content-between"
+       filter_key="createdByMe">
+        Created by me
+        <span class="badge badge-info badge-pill" id="createdbyme_span">0</span>
+    </a>
+    <a href="javascript:void(0)"
+       class="list-group-item list-group-item-action leftmenu_bottom_radius d-flex justify-content-between"
+       filter_key="assignedToMe">
+        Assigned to me
+        <span class="badge badge-info badge-pill" id="assignedtome_span">0</span>
+    </a>
+</div>

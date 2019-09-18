@@ -28,8 +28,8 @@ export class RegisterComponent implements OnInit, AfterViewInit {
   });
 
   constructor(
-    private languageService: JhiLanguageService,
     private loginModalService: LoginModalService,
+    private languageService: JhiLanguageService,
     private registerService: Register,
     private elementRef: ElementRef,
     private renderer: Renderer,

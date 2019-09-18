@@ -1,7 +1,7 @@
-import { Component, OnInit } from '@angular/core';
-import { Router, ActivatedRouteSnapshot, NavigationEnd, NavigationError } from '@angular/router';
+import { Component, Input, OnInit } from '@angular/core';
+import { Router, NavigationEnd, NavigationError, ActivatedRouteSnapshot, ActivatedRoute, NavigationStart } from '@angular/router';
 
-import { JhiLanguageHelper } from 'app/core';
+import { AccountService, JhiLanguageHelper } from 'app/core';
 
 @Component({
   selector: 'jhi-main',
@@ -9,6 +9,9 @@ import { JhiLanguageHelper } from 'app/core';
 })
 export class JhiMainComponent implements OnInit {
   constructor(private jhiLanguageHelper: JhiLanguageHelper, private router: Router) {}
+
+  current_url: String;
+  adminIsActive: boolean = true; // admin or blank // blank : arb interface
 
   private getPageTitle(routeSnapshot: ActivatedRouteSnapshot) {
     let title: string = routeSnapshot.data && routeSnapshot.data['pageTitle'] ? routeSnapshot.data['pageTitle'] : 'arboxApp';
@@ -20,9 +23,18 @@ export class JhiMainComponent implements OnInit {
 
   ngOnInit() {
     this.router.events.subscribe(event => {
+      // custom template or admin template check
+      if (event instanceof NavigationStart) {
+        this.current_url = event.url;
+        if (this.current_url.split('/')[1] == 'arb') {
+          this.adminIsActive = false;
+        }
+      }
+
       if (event instanceof NavigationEnd) {
         this.jhiLanguageHelper.updateTitle(this.getPageTitle(this.router.routerState.snapshot.root));
       }
+
       if (event instanceof NavigationError && event.error.status === 404) {
         this.router.navigate(['/404']);
       }

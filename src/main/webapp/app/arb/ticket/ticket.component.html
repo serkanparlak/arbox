@@ -1,0 +1,38 @@
+<p class="lead" id="ticket_list_header">#</p>
+<table class="table" id="ticket-list-table">
+    <thead>
+    <tr>
+        <th class="first-left" scope="col"></th>
+        <th scope="col">Subject</th>
+        <th scope="col">Reporter</th>
+        <th scope="col">Creating</th>
+        <th scope="col">Assignee</th>
+        <th class="first-right" scope="col">Priority</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr *ngFor="let tick of ticketList">
+        <td>index</td>
+        <td class="td-for-link" data-label="Subject">
+            <a routerLink="/arb/ticket/{{tick.id}}">{{tick.subject}}</a>
+        </td>
+        <td data-label="Reporter">{{tick.ownerUsername}}</td>
+        <td data-label="Creating">{{tick.date}}</td>
+        <td data-label="Assignee">{{tick.assigneeUsername}}</td>
+        <td data-label="Priority" [ngSwitch]="tick.priority">
+            <span *ngSwitchCase="priorityHigh" class="badge badge-pill badge-danger">
+                {{priorityHigh}}
+            </span>
+            <span *ngSwitchCase="priorityMedium" class="badge badge-pill badge-primary">
+                {{priorityMedium}}
+            </span>
+            <span *ngSwitchCase="priorityLow" class="badge badge-pill badge-secondary">
+                {{priorityLow}}
+            </span>
+        </td>
+    </tr>
+    <tr *ngIf="ticketList && ticketList.length === 0">
+        <td>index</td>
+    </tr>
+    </tbody>
+</table>
