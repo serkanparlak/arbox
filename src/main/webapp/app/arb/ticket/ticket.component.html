@@ -1,4 +1,4 @@
-<p class="lead" id="ticket_list_header">#</p>
+<p class="lead" id="ticket_list_header">{{activeLinkName}}</p>
 <table class="table" id="ticket-list-table">
     <thead>
     <tr>
@@ -11,28 +11,38 @@
     </tr>
     </thead>
     <tbody>
-    <tr *ngFor="let tick of ticketList">
-        <td>index</td>
+    <tr *ngFor="let tick of ticketList; index as i; trackBy: trackId">
+        <td>{{ (page - 1) * itemsPerPage + i + 1 }}</td>
         <td class="td-for-link" data-label="Subject">
             <a routerLink="/arb/ticket/{{tick.id}}">{{tick.subject}}</a>
         </td>
         <td data-label="Reporter">{{tick.ownerUsername}}</td>
-        <td data-label="Creating">{{tick.date}}</td>
+        <td data-label="Creating">{{tick.date | date:'longDate'}}</td>
         <td data-label="Assignee">{{tick.assigneeUsername}}</td>
         <td data-label="Priority" [ngSwitch]="tick.priority">
-            <span *ngSwitchCase="priorityHigh" class="badge badge-pill badge-danger">
-                {{priorityHigh}}
+            <span *ngSwitchCase="priority.High" class="badge badge-pill badge-danger">
+                {{priority.High}}
             </span>
-            <span *ngSwitchCase="priorityMedium" class="badge badge-pill badge-primary">
-                {{priorityMedium}}
+            <span *ngSwitchCase="priority.Medium" class="badge badge-pill badge-primary">
+                {{priority.Medium}}
             </span>
-            <span *ngSwitchCase="priorityLow" class="badge badge-pill badge-secondary">
-                {{priorityLow}}
+            <span *ngSwitchCase="priority.Low" class="badge badge-pill badge-secondary">
+                {{priority.Low}}
             </span>
         </td>
     </tr>
-    <tr *ngIf="ticketList && ticketList.length === 0">
-        <td>index</td>
+    <tr class="tfoot">
+        <td colspan="6">
+            <div [hidden]="ticketList?.length == 0">
+                <div class="row justify-content-center">
+                    <ngb-pagination [collectionSize]="totalItems" [(page)]="page" [pageSize]="itemsPerPage"
+                                    [maxSize]="5" [rotate]="true" [boundaryLinks]="true"
+                                    (pageChange)="loadPage(page)">
+                    </ngb-pagination>
+                </div>
+            </div>
+            <h6 *ngIf="ticketList?.length == 0" class="text-center">Empty</h6>
+        </td>
     </tr>
     </tbody>
 </table>

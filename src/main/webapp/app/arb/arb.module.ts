@@ -14,9 +14,11 @@ import { TicketDetailComponent } from './ticket/ticket-detail/ticket-detail.comp
 import { CreateCommentComponent } from './comment/create-comment/create-comment.component';
 import { LeftMenuComponent } from './layouts/left-menu/left-menu.component';
 import { NavbarComponent } from './layouts/navbar/navbar.component';
+import { NgJhipsterModule } from 'ng-jhipster';
+import { NgbPaginationModule } from '@ng-bootstrap/ng-bootstrap';
 
 @NgModule({
-  imports: [RouterModule.forChild(arb_routes), FormsModule, ReactiveFormsModule, CommonModule, HttpClientModule],
+  imports: [RouterModule.forChild(arb_routes), FormsModule, ReactiveFormsModule, CommonModule, HttpClientModule, NgbPaginationModule],
   declarations: [
     CommentComponent,
     TicketComponent,

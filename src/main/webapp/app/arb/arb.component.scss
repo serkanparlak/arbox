@@ -81,6 +81,9 @@
 }
 
 /* form */
+.list-group-item {
+  padding: 20px;
+}
 
 .list-group-item.active {
   background-color: #e9ecef;
@@ -202,29 +205,35 @@ select.form-control:focus {
 
 /* table */
 
-.table > thead th {
+.table > thead th,
+.table > tbody > .tfoot > td {
   background-color: #eff0f4;
   color: #5c636e;
   padding: 20px 15px;
   border: none;
 }
 
+.table .tfoot td {
+  border-bottom-left-radius: 30px;
+  border-bottom-right-radius: 30px;
+}
+
 .table > thead .first-left {
   /* display: block; */
   border-top-left-radius: 30px;
   /* border-left: 1px solid #eff0f4; */
-  -webkit-box-shadow: -1px 5px 0px 0px #eff0f4;
-  -moz-box-shadow: -1px 5px 0px 0px #eff0f4;
-  box-shadow: -1px 5px 0px 0px #eff0f4;
+  //-webkit-box-shadow: -1px 5px 0px 0px #eff0f4;
+  //-moz-box-shadow: -1px 5px 0px 0px #eff0f4;
+  //box-shadow: -1px 5px 0px 0px #eff0f4;
 }
 
 .table > thead .first-right {
   /* display: block; */
   border-top-right-radius: 30px;
   /* border-right: 1px solid #eff0f4; */
-  -webkit-box-shadow: 1px 5px 0px 0px #eff0f4;
-  -moz-box-shadow: 1px 5px 0px 0px #eff0f4;
-  box-shadow: 1px 5px 0px 0px #eff0f4;
+  //-webkit-box-shadow: 1px 5px 0px 0px #eff0f4;
+  //-moz-box-shadow: 1px 5px 0px 0px #eff0f4;
+  //box-shadow: 1px 5px 0px 0px #eff0f4;
 }
 
 .table > tbody td {

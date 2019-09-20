@@ -1,30 +1,120 @@
 import { Component, OnInit } from '@angular/core';
-import { TicketService } from 'app/arb/ticket/ticket.service';
+import { FilterType, TicketService } from 'app/arb/ticket/ticket.service';
 import { IArbTicket, Priority } from 'app/arb/models/ticket.model';
+import { ActivatedRoute, Router } from '@angular/router';
+import { HttpErrorResponse, HttpHeaders, HttpResponse } from '@angular/common/http';
+import { JhiAlertService, JhiEventManager, JhiParseLinks } from 'ng-jhipster';
 
 @Component({
   selector: 'jhi-arb-ticket',
   templateUrl: './ticket.component.html',
-  styleUrls: ['../arb.component.scss']
+  styleUrls: ['../arb.component.scss', './ticket.component.scss']
 })
 export class TicketComponent implements OnInit {
-  priorityHigh = Priority.High;
-  priorityMedium = Priority.Medium;
-  priorityLow = Priority.Low;
+  page: any = 1;
+  totalItems: any;
+  itemsPerPage: any = 5;
+  previousPage: any;
+  predicate: any;
+  reverse: boolean;
+  links: any;
 
-  ticket: IArbTicket;
+  activeLinkName: string;
+  activeFilterType: FilterType;
 
+  priority = Priority;
   ticketList: IArbTicket[];
 
-  constructor(private ticketService: TicketService) {}
+  constructor(
+    private ticketService: TicketService,
+    private router: Router,
+    private route: ActivatedRoute,
+    protected parseLinks: JhiParseLinks,
+    protected jhiAlertService: JhiAlertService,
+    protected eventManager: JhiEventManager
+  ) {
+    this.route.queryParams.subscribe(data => {
+      if (data.page) {
+        this.page = data.page;
+        this.previousPage = data.page;
+        this.predicate = data.sort.split(',')[0];
+        this.reverse = data.sort.split(',')[1];
+      }
+      this.activeFilterType = data.filter ? data.filter : FilterType.Unsolved;
+      this.activeLinkName = FilterType[this.activeFilterType];
+      this.loadAll();
+    });
+  }
 
   ngOnInit() {
-    this.ticketService.getTicketByTicketId(1001).subscribe(ticket => {
-      this.ticket = ticket;
+    this.loadAll();
+    this.ticketService.linkChangeEvent.subscribe(filterType => {
+      this.activeFilterType = filterType;
+      this.previousPage = undefined;
+      this.page = 1;
+      this.transition();
     });
+  }
 
-    this.ticketService.gelAllTickets().subscribe(res => {
-      this.ticketList = res;
+  loadPage(page: number) {
+    if (page !== this.previousPage) {
+      this.previousPage = page;
+      this.transition();
+    }
+  }
+
+  transition() {
+    this.router.navigate(['/arb/ticket'], {
+      queryParams: {
+        filter: this.activeFilterType,
+        page: this.page,
+        size: this.itemsPerPage,
+        sort: this.predicate + ',' + (this.reverse ? 'asc' : 'desc')
+      }
     });
+    // call loadAll() from router events
+  }
+
+  loadAll() {
+    this.ticketService
+      .getAllByFiltered(this.activeFilterType, this.page - 1, this.itemsPerPage, this.sort())
+      .subscribe(
+        (res: HttpResponse<IArbTicket[]>) => this.paginateArbTickets(res.body, res.headers),
+        (res: HttpErrorResponse) => this.onError(res.message)
+      );
+  }
+
+  sort() {
+    const result = [this.predicate + ',' + (this.reverse ? 'asc' : 'desc')];
+    if (this.predicate !== 'date') {
+      result.push('date');
+    }
+    return result;
+  }
+
+  protected paginateArbTickets(data: IArbTicket[], headers: HttpHeaders) {
+    this.links = this.parseLinks.parse(headers.get('link'));
+    this.totalItems = parseInt(headers.get('X-Total-Count'), 10);
+    this.ticketList = data;
+  }
+
+  protected onError(errorMessage: string) {
+    this.jhiAlertService.error(errorMessage, null, null);
+  }
+
+  clear() {
+    this.page = 0;
+    this.router.navigate([
+      '/arb/ticket',
+      {
+        page: this.page,
+        sort: this.predicate + ',' + (this.reverse ? 'asc' : 'desc')
+      }
+    ]);
+    this.loadAll();
+  }
+
+  trackId(index: number, item: IArbTicket) {
+    return item.id;
   }
 }

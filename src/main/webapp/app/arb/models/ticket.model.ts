@@ -1,6 +1,6 @@
 import { Moment } from 'moment';
 
-export const enum Priority {
+export enum Priority {
   High = 'High',
   Medium = 'Medium',
   Low = 'Low'

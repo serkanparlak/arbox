@@ -7,32 +7,32 @@
 <div class="list-group" id="navigate-list">
     <a href="javascript:void(0)"
        class="list-group-item list-group-item-action leftmenu_top_radius d-flex justify-content-between"
-       filter_key="allUnsolved">
-        Unsolved Tickets
+       (click)="onClickToNavigateList(filterType.Unsolved)">
+        {{filterType.unsolved}}
         <span class="badge badge-info badge-pill" id="unsolved_span">0</span>
     </a>
     <a href="javascript:void(0)"
        class="list-group-item list-group-item-action d-flex justify-content-between"
-       filter_key="allSolved">
-        Solved Tickets
+       (click)="onClickToNavigateList(filterType.Solved)">
+        {{filterType.solved}}
         <span class="badge badge-info badge-pill" id="solved_span">0</span>
     </a>
     <a href="javascript:void(0)"
        class="list-group-item list-group-item-action leftmenu_bottom_radius d-flex justify-content-between"
-       filter_key="recentlyAnswered">
-        Recently Answered
+       (click)="onClickToNavigateList(filterType.RecentlyAnswered)">
+        {{filterType.recentlyanswered}}
         <span class="badge badge-info badge-pill" id="recently_span">0</span>
     </a>
     <a href="javascript:void(0)"
        class="list-group-item list-group-item-action leftmenu_top_radius mt-3 d-flex justify-content-between"
-       filter_key="createdByMe">
-        Created by me
+       (click)="onClickToNavigateList(filterType.CreatedByMe)">
+        {{filterType.createdbyme}}
         <span class="badge badge-info badge-pill" id="createdbyme_span">0</span>
     </a>
     <a href="javascript:void(0)"
        class="list-group-item list-group-item-action leftmenu_bottom_radius d-flex justify-content-between"
-       filter_key="assignedToMe">
-        Assigned to me
+       (click)="onClickToNavigateList(filterType.AssignedToMe)">
+        {{filterType.assignedtome}}
         <span class="badge badge-info badge-pill" id="assignedtome_span">0</span>
     </a>
 </div>

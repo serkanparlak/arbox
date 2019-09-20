@@ -27,7 +27,21 @@ public interface ArbTicketRepository extends JpaRepository<ArbTicket, Long> {
 
     Page<ArbTicket> findAllByAssigneeIdOrderByDateDesc(Long assigneeId ,Pageable pageable);
 
-    String recentlyQuery = "select a.* from arb_ticket a inner join (select distinct on (c.ticket_id) c.ticket_id, c.date from (select * from arb_comment order by date) c) tids on a.id = tids.ticket_id order by tids.date desc";
-    @Query(value = recentlyQuery, nativeQuery = true)
+//    String recentlyQuery = "select a.* from arb_ticket a inner join (select distinct on (c.ticket_id) c.ticket_id, c.date from (select * from arb_comment order by date) c) tids on a.id = tids.ticket_id order by tids.date desc";
+    String recentlyQueryHakanAbi = "select art.* from arb_comment arc, arb_ticket art where arc.ticket_id = art.id group by art.id order by max(arc.date) desc --#pageable\n";
+    String recentlyQueryHakanAbiCount = "select count(distinct arc.ticket_id) from arb_comment arc";
+    @Query(value = recentlyQueryHakanAbi, countQuery = recentlyQueryHakanAbiCount, nativeQuery = true)
     Page<ArbTicket> findCommentedLatest(Pageable pageable);
 }
+
+//    select art.* from arb_comment arc, arb_ticket art
+//    where arc.ticket_id = art.id
+//    group by art.id
+//    order by max(arc.date) desc;
+//
+//    //veya
+//
+//    select art.* from arb_comment arc
+//    left join arb_ticket art on arc.ticket_id = art.id
+//    group by art.id
+//    order by max(arc.date) desc;

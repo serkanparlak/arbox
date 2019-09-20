@@ -1,14 +1,14 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { Router, NavigationEnd, NavigationError, ActivatedRouteSnapshot, ActivatedRoute, NavigationStart } from '@angular/router';
 
-import { AccountService, JhiLanguageHelper } from 'app/core';
+import { AccountService, JhiLanguageHelper, LoginService } from 'app/core';
 
 @Component({
   selector: 'jhi-main',
   templateUrl: './main.component.html'
 })
 export class JhiMainComponent implements OnInit {
-  constructor(private jhiLanguageHelper: JhiLanguageHelper, private router: Router) {}
+  constructor(private jhiLanguageHelper: JhiLanguageHelper, private router: Router, private loginService: LoginService) {}
 
   current_url: String;
   adminIsActive: boolean = true; // admin or blank // blank : arb interface
