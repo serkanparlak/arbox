@@ -1,17 +1,14 @@
 export interface IArbUser {
+  id?: number;
   login: string;
   email: string;
   password: string;
 }
 
 export class ArbUser implements IArbUser {
-  login: string;
-  email: string;
-  password: string;
+  public email: string;
 
-  constructor(username: string, password: string) {
-    this.login = username;
-    this.email = username;
-    this.password = password;
+  constructor(public login: string, public password: string, public id?: number) {
+    this.email = login;
   }
 }

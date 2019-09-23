@@ -8,6 +8,7 @@
                     <div class="col-lg-8 col-md-10 pt-3">
                         <input type="email" class="form-control" id="login" name="login"
                                formControlName="login" placeholder="Mail">
+                        {{registerForm.get('login').invalid}}
                         <div class="p-2"
                              *ngIf="registerForm.get('login').invalid && (registerForm.get('login').dirty || registerForm.get('login').touched)">
                             <span class="form-text text-danger" *ngIf="registerForm.get('login').errors.required">

@@ -3,7 +3,7 @@ import { FilterType, TicketService } from 'app/arb/ticket/ticket.service';
 import { IArbTicket, Priority } from 'app/arb/models/ticket.model';
 import { ActivatedRoute, Router } from '@angular/router';
 import { HttpErrorResponse, HttpHeaders, HttpResponse } from '@angular/common/http';
-import { JhiAlertService, JhiEventManager, JhiParseLinks } from 'ng-jhipster';
+import { JhiAlertService, JhiParseLinks } from 'ng-jhipster';
 
 @Component({
   selector: 'jhi-arb-ticket',
@@ -30,8 +30,7 @@ export class TicketComponent implements OnInit {
     private router: Router,
     private route: ActivatedRoute,
     protected parseLinks: JhiParseLinks,
-    protected jhiAlertService: JhiAlertService,
-    protected eventManager: JhiEventManager
+    protected jhiAlertService: JhiAlertService
   ) {
     this.route.queryParams.subscribe(data => {
       if (data.page) {
@@ -80,8 +79,9 @@ export class TicketComponent implements OnInit {
       .getAllByFiltered(this.activeFilterType, this.page - 1, this.itemsPerPage, this.sort())
       .subscribe(
         (res: HttpResponse<IArbTicket[]>) => this.paginateArbTickets(res.body, res.headers),
-        (res: HttpErrorResponse) => this.onError(res.message)
+        (res: HttpErrorResponse) => console.log(res.message)
       );
+    this.jhiAlertService.error('asdasd', null, null);
   }
 
   sort() {
@@ -96,10 +96,6 @@ export class TicketComponent implements OnInit {
     this.links = this.parseLinks.parse(headers.get('link'));
     this.totalItems = parseInt(headers.get('X-Total-Count'), 10);
     this.ticketList = data;
-  }
-
-  protected onError(errorMessage: string) {
-    this.jhiAlertService.error(errorMessage, null, null);
   }
 
   clear() {

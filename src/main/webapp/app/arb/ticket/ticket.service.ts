@@ -50,7 +50,7 @@ export class TicketService {
   getAllByFiltered(
     filterType = FilterType.Unsolved,
     page: any = '0',
-    size: string = '20',
+    size: string = '10',
     sort: any
   ): Observable<HttpResponse<IArbTicket[]>> {
     // create query params for http request
@@ -70,6 +70,13 @@ export class TicketService {
         observe: 'response' // added for behind code ( pipe )
       })
       .pipe(map((res: HttpResponse<IArbTicket[]>) => this.convertDateArrayFromServer(res)));
+  }
+
+  createTicket(ticket: IArbTicket): Observable<HttpResponse<IArbTicket>> {
+    ticket.date = moment(new Date());
+    ticket.state = true;
+    ticket.ownerId = this.account.id;
+    return this.http.post<IArbTicket>(this.apiTicketUrl, ticket, { headers: this.authHeader, observe: 'response' });
   }
 
   // date optimization from client

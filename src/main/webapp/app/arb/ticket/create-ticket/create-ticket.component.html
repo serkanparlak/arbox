@@ -1,3 +1,85 @@
-<p>
-  create-ticket works!
-</p>
+<div class="row justify-content-end">
+    <div class="col-md-10">
+        <div class="alert alert-danger" *ngIf="errorCreateNewTicket">
+            {{errorCreateNewTicket | json}}
+        </div>
+    </div>
+    <div class="col-md-10">
+        <div class="row alert alert-success" *ngIf="createdNewTicket">
+            <div class="col" style="line-height: 50px">NEW TICKET : <span
+                class="font-weight-bold">{{createdNewTicket.subject}}</span></div>
+            <div class="col-md-4">
+                <button class="btnn pull-right" routerLink="/arb/ticket/detail/{{createdNewTicket.id}}">Go Detail
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<form [formGroup]="createTicketForm" (ngSubmit)="onSubmit()">
+    <div class="row align-items-center justify-content-end">
+        <div class="col-12 col-md-10 title">
+            <p>To create new ticket</p>
+        </div>
+        <div class="w-100"></div>
+
+        <div class="form-group col-sm-12 col-xs-12 col-md-10 col-lg-10 ">
+            <label class="form-title">Assignee</label>
+
+            <select class="form-control" formControlName="assigneeId" (change)="assigneeSelectError = false">
+                <option value="null" selected>**Please select</option>
+                <option *ngFor="let user of users" [value]="user.id">{{user.login}}</option>
+            </select>
+            <div class="alert alert-danger"
+                 *ngIf="assigneeSelectError">
+                Please select a assignee user
+            </div>
+        </div>
+        <div class="w-100"></div>
+
+        <!-- TICKETIN ONCELIK DURUMUNU BELIRTEN SELECTFORM(PRIORITYLIST) -->
+        <div class="form-group col-12 col-md-10 ">
+            <label class="form-title">Priority</label>
+            <select class="form-control" formControlName="priority">
+                <option [value]="priority.Medium">{{priority.Medium}}</option>
+                <option [value]="priority.High"> {{priority.High}}</option>
+                <option [value]="priority.Low">{{priority.Low}}</option>
+            </select>
+        </div>
+        <div class="w-100"></div>
+
+        <!-- TICKETIN BASLIGININ GIRILDIGI KISIM -->
+        <div class="col-12 col-md-10 ">
+            <label class="form-title">Subject</label>
+            <input type="text" class="form-control" id="inputSubject" placeholder="Type Subject"
+                   formControlName="subject">
+            <div class="alert alert-danger"
+                 *ngIf="createTicketForm.get('subject').invalid && createTicketForm.get('subject').touched">
+                Subject is required
+            </div>
+        </div>
+        <div class="w-100"></div>
+
+        <!-- TICKETIN ACIKLAMASININ GIRILDIGI KISIM -->
+        <div class="col-12 col-md-10 ">
+            <label class="form-title pt-3">Description</label>
+            <textarea class="form-control" style="height: 120px" placeholder="Please describe about your issue"
+                      formControlName="description" #txtarea></textarea>
+            <div class="alert alert-danger"
+                 *ngIf="createTicketForm.get('description').invalid && createTicketForm.get('description').touched">
+                <span *ngIf="createTicketForm.get('description').errors.required">Description is required</span>
+                <p class="justify-content-between d-flex" *ngIf="createTicketForm.get('description').errors.minlength">
+                    Min 10 character
+                    <span class="text-right">
+                        <span style="font-weight: bold">{{txtarea.value.length}}</span>/10
+                    </span>
+                </p>
+            </div>
+        </div>
+        <div class="w-100"></div>
+
+        <div class="col-12 col-md-10 pt-3 justify-content-center d-flex">
+            <button type="submit" class="btnn btn-green">Create Ticket</button>
+        </div>
+    </div>
+</form>

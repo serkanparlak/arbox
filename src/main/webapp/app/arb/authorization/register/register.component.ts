@@ -30,7 +30,7 @@ export class RegisterComponent implements OnInit {
   }
 
   onSubmit() {
-    console.log(this.registerForm.value);
+    if (this.registerForm.invalid) return;
     this.registerUser = new ArbUser(this.registerForm.get('login').value, this.registerForm.get('password').value);
     this.registerService.save(this.registerUser).subscribe(
       res => {

@@ -29,13 +29,10 @@ public class ArbTicketServiceImpl implements ArbTicketService {
 
     private final ArbTicketRepository arbTicketRepository;
 
-    private final ArbCommentRepository arbCommentRepository;
-
     private final ArbTicketMapper arbTicketMapper;
 
     public ArbTicketServiceImpl(ArbTicketRepository arbTicketRepository, ArbCommentRepository arbCommentRepository, ArbTicketMapper arbTicketMapper) {
         this.arbTicketRepository = arbTicketRepository;
-        this.arbCommentRepository = arbCommentRepository;
         this.arbTicketMapper = arbTicketMapper;
     }
 

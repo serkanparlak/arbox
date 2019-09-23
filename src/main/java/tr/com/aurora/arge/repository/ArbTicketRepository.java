@@ -23,14 +23,17 @@ public interface ArbTicketRepository extends JpaRepository<ArbTicket, Long> {
 
     Page<ArbTicket> findAllByStateOrderByDateDesc(Boolean state, Pageable pageable);
 
-    Page<ArbTicket> findAllByOwnerIdOrderByDateDesc(Long ownerId ,Pageable pageable);
+    Page<ArbTicket> findAllByOwnerIdOrderByDateDesc(Long ownerId, Pageable pageable);
 
-    Page<ArbTicket> findAllByAssigneeIdOrderByDateDesc(Long assigneeId ,Pageable pageable);
+    Page<ArbTicket> findAllByAssigneeIdOrderByDateDesc(Long assigneeId, Pageable pageable);
 
-//    String recentlyQuery = "select a.* from arb_ticket a inner join (select distinct on (c.ticket_id) c.ticket_id, c.date from (select * from arb_comment order by date) c) tids on a.id = tids.ticket_id order by tids.date desc";
-    String recentlyQueryHakanAbi = "select art.* from arb_comment arc, arb_ticket art where arc.ticket_id = art.id group by art.id order by max(arc.date) desc --#pageable\n";
-    String recentlyQueryHakanAbiCount = "select count(distinct arc.ticket_id) from arb_comment arc";
-    @Query(value = recentlyQueryHakanAbi, countQuery = recentlyQueryHakanAbiCount, nativeQuery = true)
+    //    String recentlyQuery = "select a.* from arb_ticket a inner join (select distinct on (c.ticket_id) c.ticket_id, c.date from (select * from arb_comment order by date) c) tids on a.id = tids.ticket_id order by tids.date desc";
+    String query = "select art.* from arb_comment arc, arb_ticket art where arc.ticket_id = art.id group by art.id order by max(arc.date) desc --#pageable\\n";//
+    String count = "select count(distinct arc.ticket_id) from arb_comment arc";
+    String count2 = "select count(art.*) from arb_comment arc, arb_ticket art where arc.ticket_id = art.id group by art.id";
+    String jpaQuery = "select art from ArbTicket art, ArbComment arc where art = arc group by art.id ";//order by max(arc.date) desc
+
+    @Query(value = jpaQuery, nativeQuery = false)
     Page<ArbTicket> findCommentedLatest(Pageable pageable);
 }
 

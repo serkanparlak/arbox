@@ -14,11 +14,19 @@ import { TicketDetailComponent } from './ticket/ticket-detail/ticket-detail.comp
 import { CreateCommentComponent } from './comment/create-comment/create-comment.component';
 import { LeftMenuComponent } from './layouts/left-menu/left-menu.component';
 import { NavbarComponent } from './layouts/navbar/navbar.component';
-import { NgJhipsterModule } from 'ng-jhipster';
 import { NgbPaginationModule } from '@ng-bootstrap/ng-bootstrap';
+import { NgSelectModule } from '@ng-select/ng-select';
 
 @NgModule({
-  imports: [RouterModule.forChild(arb_routes), FormsModule, ReactiveFormsModule, CommonModule, HttpClientModule, NgbPaginationModule],
+  imports: [
+    RouterModule.forChild(arb_routes),
+    FormsModule,
+    ReactiveFormsModule,
+    CommonModule,
+    HttpClientModule,
+    NgbPaginationModule,
+    NgSelectModule
+  ],
   declarations: [
     CommentComponent,
     TicketComponent,
@@ -31,6 +39,6 @@ import { NgbPaginationModule } from '@ng-bootstrap/ng-bootstrap';
     NavbarComponent
   ],
   exports: [LeftMenuComponent, NavbarComponent],
-  providers: []
+  providers: [{ provide: 'ApiUserBaseUrl', useValue: 'http://localhost:8080/api/users' }]
 })
 export class ArbModule {}
