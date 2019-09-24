@@ -14,6 +14,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import tr.com.aurora.arge.web.rest.vm.TicketVM;
 
 import java.util.List;
 import java.util.Optional;
@@ -65,7 +66,7 @@ public class ArbTicketServiceImpl implements ArbTicketService {
     }
 
     @Override
-    public Page<ArbTicketDTO> getAllByState(Boolean state ,Pageable pageable) {
+    public Page<ArbTicketDTO> getAllByState(Boolean state, Pageable pageable) {
 
         return arbTicketRepository.findAllByStateOrderByDateDesc(state, pageable)
             .map(arbTicketMapper::toDto);
@@ -112,6 +113,14 @@ public class ArbTicketServiceImpl implements ArbTicketService {
     public void delete(Long id) {
         log.debug("Request to delete ArbTicket : {}", id);
         arbTicketRepository.deleteById(id);
+    }
+
+
+    //TODO Serkan bu servisi yazsın
+    @Override
+    @Transactional(readOnly = true)
+    public Page<TicketVM> findAllVM(Pageable pageable) {
+        return null;
     }
 
 }

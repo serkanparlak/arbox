@@ -4,6 +4,7 @@ import tr.com.aurora.arge.service.dto.ArbTicketDTO;
 
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import tr.com.aurora.arge.web.rest.vm.TicketVM;
 
 import java.util.Optional;
 
@@ -50,5 +51,13 @@ public interface ArbTicketService {
      * @param id the id of the entity.
      */
     void delete(Long id);
+
+
+    /**
+     *
+     * @param pageable
+     * @return
+     */
+    Page<TicketVM> findAllVM(Pageable pageable);
 
 }
