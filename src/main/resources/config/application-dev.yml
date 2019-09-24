@@ -36,7 +36,7 @@ spring:
       indent-output: true
   datasource:
     type: com.zaxxer.hikari.HikariDataSource
-    url: jdbc:postgresql://localhost:5432/arbox_dev
+    url: jdbc:postgresql://10.33.22.21:5432/arbox_dev
     username: arbox
     password: arbox
     hikari:
@@ -55,7 +55,7 @@ spring:
   liquibase:
     # Remove 'faker' if you do not want the sample data to be loaded automatically
     contexts: dev, faker
-    url: jdbc:postgresql://localhost:5432/arbox_dev
+    url: jdbc:postgresql://10.33.22.21:5432/arbox_dev
     user: arbox
     password: arbox
   mail:

@@ -8,15 +8,14 @@ import { AuthServerProvider, JhiLanguageHelper, LoginService } from 'app/core';
   templateUrl: './main.component.html'
 })
 export class JhiMainComponent implements OnInit {
+  current_url: string;
+  adminIsActive = true; // admin or blank // blank : arb interface
   constructor(
     private jhiLanguageHelper: JhiLanguageHelper,
     private router: Router,
     // private loginService: LoginService,
     private auth: AuthServerProvider
   ) {}
-
-  current_url: String;
-  adminIsActive: boolean = true; // admin or blank // blank : arb interface
 
   private getPageTitle(routeSnapshot: ActivatedRouteSnapshot) {
     let title: string = routeSnapshot.data && routeSnapshot.data['pageTitle'] ? routeSnapshot.data['pageTitle'] : 'arboxApp';
@@ -31,7 +30,7 @@ export class JhiMainComponent implements OnInit {
       // custom template or admin template check
       if (event instanceof NavigationStart) {
         this.current_url = event.url;
-        if (this.current_url.split('/')[1] == 'arb') {
+        if (this.current_url.split('/')[1] === 'arb') {
           this.adminIsActive = false;
         }
       }

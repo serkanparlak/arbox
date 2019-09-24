@@ -15,7 +15,7 @@ import java.util.List;
 @Repository
 public interface ArbTicketRepository extends JpaRepository<ArbTicket, Long> {
 
-    @Query("select arbTicket from ArbTicket arbTicket where arbTicket.owner.login = ?#{principal.username}")
+    @Query(value = "select arbTicket from ArbTicket arbTicket where arbTicket.owner.login = ?#{principal.username}")
     List<ArbTicket> findByOwnerIsCurrentUser();
 
     @Query("select arbTicket from ArbTicket arbTicket where arbTicket.assignee.login = ?#{principal.username}")
@@ -28,12 +28,17 @@ public interface ArbTicketRepository extends JpaRepository<ArbTicket, Long> {
     Page<ArbTicket> findAllByAssigneeIdOrderByDateDesc(Long assigneeId, Pageable pageable);
 
     //    String recentlyQuery = "select a.* from arb_ticket a inner join (select distinct on (c.ticket_id) c.ticket_id, c.date from (select * from arb_comment order by date) c) tids on a.id = tids.ticket_id order by tids.date desc";
-    String query = "select art.* from arb_comment arc, arb_ticket art where arc.ticket_id = art.id group by art.id order by max(arc.date) desc --#pageable\\n";//
-    String count = "select count(distinct arc.ticket_id) from arb_comment arc";
-    String count2 = "select count(art.*) from arb_comment arc, arb_ticket art where arc.ticket_id = art.id group by art.id";
+    String query = "select art.* from arb_comment arc, arb_ticket art " +
+        "where arc.ticket_id = art.id " +
+        "group by art.id " +
+        "order by max(arc.date) desc";
+    //String count = "select count(distinct arc.ticket_id) from arb_comment arc";
+    String count2 = "select count(art.id) from arb_ticket art where exists (select 1 from arb_comment arc where arc.ticket_id = art.id)";
     String jpaQuery = "select art from ArbTicket art, ArbComment arc where art = arc group by art.id ";//order by max(arc.date) desc
 
-    @Query(value = jpaQuery, nativeQuery = false)
+    @Query(value = query,
+        nativeQuery = true,
+        countQuery = count2)
     Page<ArbTicket> findCommentedLatest(Pageable pageable);
 }
 

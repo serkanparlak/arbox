@@ -10,20 +10,20 @@ import { ArbTicket, Priority } from 'app/arb/models/ticket.model';
 })
 export class TicketDetailComponent implements OnInit {
   ticket: ArbTicket;
-  priortyType = Priority;
+  priorityType = Priority;
   @ViewChild('removeButton', { static: true }) removeButton: ElementRef<HTMLButtonElement>;
   @ViewChild('deleteButton', { static: true }) deleteButton: ElementRef<HTMLButtonElement>;
 
   constructor(private ticketService: TicketService, private route: ActivatedRoute) {}
 
   ngOnInit() {
-    let id = this.route.snapshot.params['id'];
+    const id = this.route.snapshot.params['id'];
     this.ticketService.getTicketById(id).subscribe(res => (this.ticket = res), err => console.log(err));
   }
 
   onRemove() {
-    let elm = this.removeButton.nativeElement;
-    let sureElm = this.deleteButton.nativeElement;
+    const elm = this.removeButton.nativeElement;
+    const sureElm = this.deleteButton.nativeElement;
     if (elm.classList.contains('remove')) {
       elm.innerText = 'Remove';
       elm.style.backgroundColor = 'tomato';

@@ -47,13 +47,14 @@ export class TicketComponent implements OnInit {
 
   ngOnInit() {
     this.loadAll();
-    if (this.ticketService.linkChangeEvent.observers.length < 1)
+    if (this.ticketService.linkChangeEvent.observers.length < 1) {
       this.ticketService.linkChangeEvent.subscribe(filterType => {
         this.activeFilterType = filterType;
         this.previousPage = undefined;
         this.page = 1;
         this.transition();
       });
+    }
   }
 
   loadPage(page: number) {

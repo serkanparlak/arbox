@@ -18,8 +18,10 @@ export class LeftMenuComponent implements OnInit {
   ngOnInit() {}
 
   onClickToNavigateList(filterType: FilterType) {
-    if (this.ticketService.linkChangeEvent.observers.length < 1)
+    if (this.ticketService.linkChangeEvent.observers.length < 1) {
       this.router.navigate(['/arb/ticket'], { queryParams: { filter: filterType } });
-    else this.ticketService.linkChangeEvent.emit(filterType);
+    } else {
+      this.ticketService.linkChangeEvent.emit(filterType);
+    }
   }
 }

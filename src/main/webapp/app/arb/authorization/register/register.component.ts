@@ -11,12 +11,12 @@ import { Router } from '@angular/router';
   styleUrls: ['../../arb.component.scss', './register.component.scss']
 })
 export class RegisterComponent implements OnInit {
-  constructor(private registerService: Register, private fb: FormBuilder, private router: Router) {}
-
   userExist: boolean;
   registerSuccess: boolean;
   registerForm: FormGroup;
   private registerUser: ArbUser;
+
+  constructor(private registerService: Register, private fb: FormBuilder, private router: Router) {}
 
   ngOnInit() {
     this.registerForm = this.fb.group(
@@ -30,7 +30,9 @@ export class RegisterComponent implements OnInit {
   }
 
   onSubmit() {
-    if (this.registerForm.invalid) return;
+    if (this.registerForm.invalid) {
+      return;
+    }
     this.registerUser = new ArbUser(this.registerForm.get('login').value, this.registerForm.get('password').value);
     this.registerService.save(this.registerUser).subscribe(
       res => {

@@ -24,7 +24,6 @@ export class CreateTicketComponent implements OnInit {
 
   ngOnInit() {
     this.userService.getAllUsers().subscribe(users => (this.users = users));
-
     this.createTicketForm = this.fb.group({
       assigneeId: ['null'],
       priority: [this.priority.Medium],
@@ -34,9 +33,12 @@ export class CreateTicketComponent implements OnInit {
   }
 
   onSubmit() {
-    if (this.createTicketForm.get('assigneeId').value === 'null') return (this.assigneeSelectError = true);
-    if (this.createTicketForm.invalid) return;
-
+    if (this.createTicketForm.get('assigneeId').value === 'null') {
+      return (this.assigneeSelectError = true);
+    }
+    if (this.createTicketForm.invalid) {
+      return;
+    }
     this.ticketService.createTicket(this.createTicketForm.value).subscribe(
       (res: HttpResponse<IArbTicket>) => {
         if (res.status === 201) {

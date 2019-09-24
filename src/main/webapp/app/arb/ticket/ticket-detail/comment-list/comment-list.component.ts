@@ -36,12 +36,11 @@ export class CommentListComponent implements OnInit {
     if (this.createCommentForm.invalid) {
       return;
     }
-    let comment = new ArbComment();
+    const comment = new ArbComment();
     comment.isSolution = false;
     comment.date = moment(new Date());
     comment.content = this.createCommentForm.get('content').value;
     comment.ticketId = this.ticketId;
-
-    this.commentService.addComment(comment).subscribe(comment => this.comments.push(comment));
+    this.commentService.addComment(comment).subscribe(c => this.comments.push(comment));
   }
 }

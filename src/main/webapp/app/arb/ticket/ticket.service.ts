@@ -42,26 +42,21 @@ export class TicketService {
     return this.http.get(`${this.apiTicketUrl}/${id}`, { headers: this.authHeader });
   }
 
-  gelAllTickets(page: string = '0', size: string = '10000'): Observable<IArbTicket[]> {
+  gelAllTickets(page = '0', size = '10000'): Observable<IArbTicket[]> {
     const params = new HttpParams().append('page', page).append('size', size);
     return this.http.get<IArbTicket[]>(`${this.apiTicketUrl}`, { headers: this.authHeader, params });
   }
 
-  getAllByFiltered(
-    filterType = FilterType.Unsolved,
-    page: any = '0',
-    size: string = '10',
-    sort: any
-  ): Observable<HttpResponse<IArbTicket[]>> {
+  getAllByFiltered(filterType = FilterType.Unsolved, page: any = '0', size = '10', sort: any): Observable<HttpResponse<IArbTicket[]>> {
     // create query params for http request
-    let params = new HttpParams().append('page', page).append('size', size);
+    const params = new HttpParams().append('page', page).append('size', size);
     if (sort) {
       sort.forEach(val => {
         params.append('sort', val);
       });
     }
     // if filter type is necessary user info, like created or assignee
-    const id = filterType == FilterType.CreatedByMe || filterType == FilterType.AssignedToMe ? '/' + this.account.id : '';
+    const id = filterType === FilterType.CreatedByMe || filterType === FilterType.AssignedToMe ? '/' + this.account.id : '';
     // http request
     return this.http
       .get<IArbTicket[]>(`${this.apiTicketUrl}/${filterType}${id}`, {

@@ -27,7 +27,6 @@ export class CommentService {
   }
 
   addComment(data: ArbComment): Observable<ArbComment> {
-    debugger;
     data.ownerId = this.account.id;
     return this.http.post(this.apiCommentBaseUrl, data, { headers: this.authHeader });
   }
