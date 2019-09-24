@@ -1,3 +1,77 @@
-<p>
-  ticket-detail works!
-</p>
+
+<div class="row text-white" id="const-ticket-detail">
+    <div class="col-12 pb-3">
+        <div class="row mt-2">
+            <div class="col-md-3 col-sm-12">
+                <h2 id="badge_close" style="text-align: right"></h2>
+            </div>
+            <div class="col-md-9 col-sm-12">
+                <h1 class="font-weight-bold" id="ticket_subject">
+                    <span>{{ticket?.subject}}</span>
+                </h1>
+                <p class="position-relative float-right" style="top: -14px; font-size: 14px"
+                   id="ticket_created_date">
+                    {{ticket?.date | date:'medium'}}
+                </p>
+            </div>
+        </div>
+        <div class="row ">
+            <div class="col-md-3 col-sm-12">
+                <p class="float-right font-weight-bold">Reporter</p>
+            </div>
+            <div class="col-md-9 col-sm-12 text-justify">
+                <p id="ticket_reporter">{{ticket?.ownerUsername}}</p>
+            </div>
+        </div>
+        <div class="row ">
+            <div class="col-md-3 col-sm-12">
+                <p class="float-right font-weight-bold">Assignee</p>
+            </div>
+            <div class="col-md-9 col-sm-12 text-justify">
+                <p id="ticket_assignee">{{ticket?.assigneeUsername}}</p>
+            </div>
+        </div>
+        <div class="row mt-3">
+            <div class="col-md-3 col-sm-12">
+                <p class="float-right font-weight-bold">Priority</p>
+            </div>
+            <div class="col-md-9 col-sm-12 text-justify" id="ticket_priority">
+                 <span class="badge"
+                       [class.badge-danger]="ticket?.priority === priortyType.High"
+                       [class.badge-primary]="ticket?.priority === priortyType.Medium"
+                       [class.badge-dark]="ticket?.priority === priortyType.Low">{{ticket?.priority}}</span>
+            </div>
+        </div>
+        <div class="row mt-3">
+            <div class="col-md-3 col-sm-12">
+                <p class="float-right font-weight-bold">Description</p>
+            </div>
+            <div class="col-md-9 col-sm-12 ">
+                <p class="text-justify" id="ticket_description">
+                    {{ticket?.description}}
+                </p>
+            </div>
+        </div>
+
+        <div class="row mt-2" id="edit_remove_box">
+            <div class="col-md-9 offset-md-3 col-sm-12">
+                <button class="btnn-sm" style="background-color: cadetblue"
+                routerLink="/arb/ticket/edit/{{ticket?.id}}">
+                    Edit
+                </button>
+                <button class="btnn-sm ml-3" style="background-color: tomato" #removeButton
+                        (click)="onRemove()" title="Remove">
+                    Remove
+                </button>
+                <button class="btnn-sm ml-1" style="background-color: #1ed761; font-weight: bold" #deleteButton
+                        (click)="onRemoveConfirm()" hidden title="Remove">
+                    ✓
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+<div id="comment-area" class="comment-body text-white">
+    <!-- YORUMLARIN LISTELENDIGI KISIM -->
+    <jhi-comment-list [ticketId]="ticket?.id"></jhi-comment-list>
+</div>

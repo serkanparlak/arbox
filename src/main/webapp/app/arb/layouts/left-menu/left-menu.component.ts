@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
+import { ActivatedRoute, Params, Router } from '@angular/router';
 import { FilterType, TicketService } from 'app/arb/ticket/ticket.service';
+import { HttpParams } from '@angular/common/http';
 
 export enum FilterTypeName {}
 
@@ -17,6 +18,8 @@ export class LeftMenuComponent implements OnInit {
   ngOnInit() {}
 
   onClickToNavigateList(filterType: FilterType) {
-    this.ticketService.linkChangeEvent.emit(filterType);
+    if (this.ticketService.linkChangeEvent.observers.length < 1)
+      this.router.navigate(['/arb/ticket'], { queryParams: { filter: filterType } });
+    else this.ticketService.linkChangeEvent.emit(filterType);
   }
 }

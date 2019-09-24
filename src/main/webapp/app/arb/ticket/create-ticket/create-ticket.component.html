@@ -63,17 +63,18 @@
         <!-- TICKETIN ACIKLAMASININ GIRILDIGI KISIM -->
         <div class="col-12 col-md-10 ">
             <label class="form-title pt-3">Description</label>
-            <textarea class="form-control" style="height: 120px" placeholder="Please describe about your issue"
+            <textarea autosize class="form-control" placeholder="Please describe about your issue"
                       formControlName="description" #txtarea></textarea>
             <div class="alert alert-danger"
                  *ngIf="createTicketForm.get('description').invalid && createTicketForm.get('description').touched">
                 <span *ngIf="createTicketForm.get('description').errors.required">Description is required</span>
-                <p class="justify-content-between d-flex" *ngIf="createTicketForm.get('description').errors.minlength">
+                <span class="justify-content-between d-flex"
+                      *ngIf="createTicketForm.get('description').errors.minlength">
                     Min 10 character
                     <span class="text-right">
                         <span style="font-weight: bold">{{txtarea.value.length}}</span>/10
                     </span>
-                </p>
+                </span>
             </div>
         </div>
         <div class="w-100"></div>

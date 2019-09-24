@@ -11,10 +11,10 @@
     </tr>
     </thead>
     <tbody>
-    <tr *ngFor="let tick of ticketList; index as i; trackBy: trackId">
+    <tr *ngFor="let tick of ticketList; index as i;">
         <td>{{ (page - 1) * itemsPerPage + i + 1 }}</td>
         <td class="td-for-link" data-label="Subject">
-            <a routerLink="/arb/ticket/{{tick.id}}">{{tick.subject}}</a>
+            <a routerLink="/arb/ticket/detail/{{tick.id}}">{{tick.subject}}</a>
         </td>
         <td data-label="Reporter">{{tick.ownerUsername}}</td>
         <td data-label="Creating">{{tick.date | date:'longDate'}}</td>

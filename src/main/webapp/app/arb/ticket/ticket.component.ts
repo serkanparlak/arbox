@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FilterType, TicketService } from 'app/arb/ticket/ticket.service';
 import { IArbTicket, Priority } from 'app/arb/models/ticket.model';
 import { ActivatedRoute, Router } from '@angular/router';
@@ -13,7 +13,7 @@ import { JhiAlertService, JhiParseLinks } from 'ng-jhipster';
 export class TicketComponent implements OnInit {
   page: any = 1;
   totalItems: any;
-  itemsPerPage: any = 5;
+  itemsPerPage: any = 7;
   previousPage: any;
   predicate: any;
   reverse: boolean;
@@ -47,12 +47,13 @@ export class TicketComponent implements OnInit {
 
   ngOnInit() {
     this.loadAll();
-    this.ticketService.linkChangeEvent.subscribe(filterType => {
-      this.activeFilterType = filterType;
-      this.previousPage = undefined;
-      this.page = 1;
-      this.transition();
-    });
+    if (this.ticketService.linkChangeEvent.observers.length < 1)
+      this.ticketService.linkChangeEvent.subscribe(filterType => {
+        this.activeFilterType = filterType;
+        this.previousPage = undefined;
+        this.page = 1;
+        this.transition();
+      });
   }
 
   loadPage(page: number) {
@@ -108,9 +109,5 @@ export class TicketComponent implements OnInit {
       }
     ]);
     this.loadAll();
-  }
-
-  trackId(index: number, item: IArbTicket) {
-    return item.id;
   }
 }

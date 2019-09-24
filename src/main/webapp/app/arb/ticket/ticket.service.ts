@@ -38,7 +38,7 @@ export class TicketService {
     accountService.identity().then(account => (this.account = account));
   }
 
-  getTicketByTicketId(id: number): Observable<IArbTicket> {
+  getTicketById(id: number): Observable<IArbTicket> {
     return this.http.get(`${this.apiTicketUrl}/${id}`, { headers: this.authHeader });
   }
 

@@ -16,6 +16,8 @@ import { LeftMenuComponent } from './layouts/left-menu/left-menu.component';
 import { NavbarComponent } from './layouts/navbar/navbar.component';
 import { NgbPaginationModule } from '@ng-bootstrap/ng-bootstrap';
 import { NgSelectModule } from '@ng-select/ng-select';
+import { TextareaAutosizeModule } from 'ngx-textarea-autosize';
+import { CommentListComponent } from './ticket/ticket-detail/comment-list/comment-list.component';
 
 @NgModule({
   imports: [
@@ -25,7 +27,8 @@ import { NgSelectModule } from '@ng-select/ng-select';
     CommonModule,
     HttpClientModule,
     NgbPaginationModule,
-    NgSelectModule
+    NgSelectModule,
+    TextareaAutosizeModule
   ],
   declarations: [
     CommentComponent,
@@ -36,9 +39,13 @@ import { NgSelectModule } from '@ng-select/ng-select';
     TicketDetailComponent,
     CreateCommentComponent,
     LeftMenuComponent,
-    NavbarComponent
+    NavbarComponent,
+    CommentListComponent
   ],
   exports: [LeftMenuComponent, NavbarComponent],
-  providers: [{ provide: 'ApiUserBaseUrl', useValue: 'http://localhost:8080/api/users' }]
+  providers: [
+    { provide: 'ApiUserBaseUrl', useValue: 'http://localhost:8080/api/users' },
+    { provide: 'ApiCommentBaseUrl', useValue: 'http://localhost:8080/api/comments' }
+  ]
 })
 export class ArbModule {}

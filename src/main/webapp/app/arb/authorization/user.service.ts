@@ -1,5 +1,5 @@
 import { Inject, Injectable } from '@angular/core';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { AccountService, AuthServerProvider } from 'app/core';
 import { Observable } from 'rxjs';
 import { ArbUser } from 'app/arb/models/user.model';
@@ -23,5 +23,9 @@ export class UserService {
 
   getAllUsers(): Observable<ArbUser[]> {
     return this.http.get<ArbUser[]>(this.apiUserBaseUrl, { headers: this.jwtHeader });
+  }
+
+  getUserById(id: number): Observable<ArbUser> {
+    return this.http.get<ArbUser>(`${this.apiUserBaseUrl}/:${id}`, { headers: this.jwtHeader });
   }
 }
