@@ -74,6 +74,10 @@ export class TicketService {
     return this.http.post<IArbTicket>(this.apiTicketUrl, ticket, { headers: this.authHeader, observe: 'response' });
   }
 
+  updateTicket(ticket: IArbTicket): Observable<HttpResponse<IArbTicket>> {
+    return this.http.put<IArbTicket>(this.apiTicketUrl, ticket, { headers: this.authHeader, observe: 'response' });
+  }
+
   // date optimization from client
   protected convertDateFromClient(arbTicket: IArbTicket): IArbTicket {
     const copy: IArbTicket = Object.assign({}, arbTicket, {

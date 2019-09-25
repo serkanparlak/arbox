@@ -5,11 +5,12 @@
         </div>
     </div>
     <div class="col-md-10">
-        <div class="row alert alert-success" *ngIf="createdNewTicket">
+        <div class="row alert alert-success br-30" *ngIf="createdNewTicket?.id">
             <div class="col" style="line-height: 50px">NEW TICKET : <span
                 class="font-weight-bold">{{createdNewTicket.subject}}</span></div>
             <div class="col-md-4">
-                <button class="btnn pull-right" routerLink="/arb/ticket/detail/{{createdNewTicket.id}}">Go Detail
+                <button class="btnn pull-right"
+                        [routerLink]="['/arb/ticket/detail/' + createdNewTicket.id]">Go Detail
                 </button>
             </div>
         </div>
@@ -30,7 +31,7 @@
                 <option value="null" selected>**Please select</option>
                 <option *ngFor="let user of users" [value]="user.id">{{user.login}}</option>
             </select>
-            <div class="alert alert-danger"
+            <div class="alert alert-danger alert-validation"
                  *ngIf="assigneeSelectError">
                 Please select a assignee user
             </div>
@@ -51,9 +52,10 @@
         <!-- TICKETIN BASLIGININ GIRILDIGI KISIM -->
         <div class="col-12 col-md-10 ">
             <label class="form-title">Subject</label>
-            <input type="text" class="form-control" id="inputSubject" placeholder="Type Subject"
-                   formControlName="subject">
-            <div class="alert alert-danger"
+            <input type="text" class="form-control" id="inputSubject" placeholder="Type Subject" #sub
+                   formControlName="subject"
+                   (change)="createTicketForm.get('subject').setValue(sub.value.trim())">
+            <div class="alert alert-danger alert-validation"
                  *ngIf="createTicketForm.get('subject').invalid && createTicketForm.get('subject').touched">
                 Subject is required
             </div>
@@ -64,8 +66,9 @@
         <div class="col-12 col-md-10 ">
             <label class="form-title pt-3">Description</label>
             <textarea autosize class="form-control" placeholder="Please describe about your issue"
-                      formControlName="description" #txtarea></textarea>
-            <div class="alert alert-danger"
+                      formControlName="description" #txtarea
+                      (change)="createTicketForm.get('description').setValue(txtarea.value.trim())"></textarea>
+            <div class="alert alert-danger alert-validation"
                  *ngIf="createTicketForm.get('description').invalid && createTicketForm.get('description').touched">
                 <span *ngIf="createTicketForm.get('description').errors.required">Description is required</span>
                 <span class="justify-content-between d-flex"

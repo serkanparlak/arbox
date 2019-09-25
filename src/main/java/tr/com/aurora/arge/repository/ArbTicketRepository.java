@@ -32,13 +32,13 @@ public interface ArbTicketRepository extends JpaRepository<ArbTicket, Long> {
         "where arc.ticket_id = art.id " +
         "group by art.id " +
         "order by max(arc.date) desc";
-    //String count = "select count(distinct arc.ticket_id) from arb_comment arc";
+    String count = "select count(distinct arc.ticket_id) from arb_comment arc";
     String count2 = "select count(art.id) from arb_ticket art where exists (select 1 from arb_comment arc where arc.ticket_id = art.id)";
     String jpaQuery = "select art from ArbTicket art, ArbComment arc where art = arc group by art.id ";//order by max(arc.date) desc
 
     @Query(value = query,
-        nativeQuery = true,
-        countQuery = count2)
+        countQuery = count,
+        nativeQuery = true)
     Page<ArbTicket> findCommentedLatest(Pageable pageable);
 }
 

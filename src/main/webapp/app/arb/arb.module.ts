@@ -17,7 +17,6 @@ import { NavbarComponent } from './layouts/navbar/navbar.component';
 import { NgbPaginationModule } from '@ng-bootstrap/ng-bootstrap';
 import { NgSelectModule } from '@ng-select/ng-select';
 import { TextareaAutosizeModule } from 'ngx-textarea-autosize';
-import { CommentListComponent } from './ticket/ticket-detail/comment-list/comment-list.component';
 
 @NgModule({
   imports: [
@@ -39,13 +38,12 @@ import { CommentListComponent } from './ticket/ticket-detail/comment-list/commen
     TicketDetailComponent,
     CreateCommentComponent,
     LeftMenuComponent,
-    NavbarComponent,
-    CommentListComponent
+    NavbarComponent
   ],
   exports: [LeftMenuComponent, NavbarComponent],
   providers: [
     { provide: 'ApiUserBaseUrl', useValue: 'http://localhost:8080/api/users' },
-    { provide: 'ApiCommentBaseUrl', useValue: 'http://localhost:8080/api/comments' }
+    { provide: 'ApiCommentBaseUrl', useValue: 'http://localhost:8080/api/arb-comments' }
   ]
 })
 export class ArbModule {}

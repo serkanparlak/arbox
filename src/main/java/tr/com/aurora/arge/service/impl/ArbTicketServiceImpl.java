@@ -120,7 +120,7 @@ public class ArbTicketServiceImpl implements ArbTicketService {
     @Override
     @Transactional(readOnly = true)
     public Page<TicketVM> findAllVM(Pageable pageable) {
-        return null;
+        return arbTicketRepository.findAll(pageable).map(arbTicketMapper::toVM);
     }
 
 }

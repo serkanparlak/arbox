@@ -12,7 +12,7 @@ import { AuthExpiredInterceptor } from './blocks/interceptor/auth-expired.interc
 import { ErrorHandlerInterceptor } from './blocks/interceptor/errorhandler.interceptor';
 import { NotificationInterceptor } from './blocks/interceptor/notification.interceptor';
 import { ArboxSharedModule } from 'app/shared';
-import { AccountService, ArboxCoreModule } from 'app/core';
+import { ArboxCoreModule } from 'app/core';
 import { ArboxAppRoutingModule } from './app-routing.module';
 import { ArboxHomeModule } from './home/home.module';
 import { ArboxAccountModule } from './account/account.module';

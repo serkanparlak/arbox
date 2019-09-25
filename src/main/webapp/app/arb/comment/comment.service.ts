@@ -23,7 +23,7 @@ export class CommentService {
   }
 
   getAllCommentByTicketId(tId: number): Observable<HttpResponse<ArbComment[]>> {
-    return this.http.get<ArbComment[]>(this.apiCommentBaseUrl, { headers: this.authHeader, observe: 'response' });
+    return this.http.get<ArbComment[]>(`${this.apiCommentBaseUrl}/:${tId}`, { headers: this.authHeader, observe: 'response' });
   }
 
   addComment(data: ArbComment): Observable<ArbComment> {

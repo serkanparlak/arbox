@@ -1,3 +1,31 @@
-<p>
-  create-comment works!
-</p>
+<h3 class="pl-4">Your Answer</h3>
+<form [formGroup]="createCommentForm">
+    <textarea autosize
+              class="form-control"
+              placeholder="Write answer..."
+              formControlName="content"
+              #txtarea
+              (change)="createCommentForm.get('content').setValue(txtarea.value.trim())"></textarea>
+    <div class="alert alert-danger alert-validation"
+         *ngIf="createCommentForm.get('content').invalid && createCommentForm.get('content').touched">
+        Please type anything..
+    </div>
+    <div class="justify-content-end d-flex mt-3">
+        <div *ngIf="iSolveBtnActive">
+            <button class="btnn btn-black" type="button"
+                    (click)="iSolveBtnActive=!iSolveBtnActive">Solve & Close
+            </button>
+            <button class="btnn btn-green ml-2" type="submit" (click)="createComment()">Post Answer</button>
+        </div>
+
+        <div *ngIf="!iSolveBtnActive">
+            <button class="btnn btn-black"
+                    (click)="iSolveBtnActive=!iSolveBtnActive">
+                Cancel
+            </button>
+            <button class="btnn btn-green" style="background-color: tomato" (click)="onSolveComment()" title="I am sure!">
+                I am sure!
+            </button>
+        </div>
+    </div>
+</form>

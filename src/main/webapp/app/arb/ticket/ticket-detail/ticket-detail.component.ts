@@ -42,4 +42,10 @@ export class TicketDetailComponent implements OnInit {
   onRemoveConfirm() {
     alert('TODO: Deleted work');
   }
+
+  solvedTicket(ticket: ArbTicket) {
+    this.ticketService.updateTicket(ticket).subscribe(res => {
+      console.log(res);
+    });
+  }
 }

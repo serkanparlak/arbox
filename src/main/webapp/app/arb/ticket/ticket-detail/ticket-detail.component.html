@@ -3,7 +3,7 @@
     <div class="col-12 pb-3">
         <div class="row mt-2">
             <div class="col-md-3 col-sm-12">
-                <h2 id="badge_close" style="text-align: right"></h2>
+                <h2 style="display: inline-block; float: right" *ngIf="ticket && !ticket.state"><span class="badge badge-dark br-30">CLOSED</span></h2>
             </div>
             <div class="col-md-9 col-sm-12">
                 <h1 class="font-weight-bold" id="ticket_subject">
@@ -71,7 +71,7 @@
         </div>
     </div>
 </div>
-<div id="comment-area" class="comment-body text-white">
+<div class="comment-body text-white">
     <!-- YORUMLARIN LISTELENDIGI KISIM -->
-    <jhi-comment-list [ticketId]="ticket?.id"></jhi-comment-list>
+    <jhi-arb-comment *ngIf="ticket" [ticket]="ticket" (solveTicket)="solvedTicket($event)"></jhi-arb-comment>
 </div>
