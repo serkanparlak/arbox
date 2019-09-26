@@ -1,0 +1,72 @@
+<form [formGroup]="editTicketForm" (submit)="onSubmit()">
+
+    <div class="row justify-content-end text-white">
+        <p class="title" style="text-align: right; font-size:3vw;">To edit your ticket</p>
+
+        <!-- IS veya TICKETIN ATANDIGI KULLANICININ SECILDIGI KISIM -->
+        <div class="form-group col-md-10 col-sm-12 ">
+            <label class="form-title">Assignee</label>
+            <select class="form-control" formControlName="assigneeId">
+                <option *ngFor="let usr of userList" [value]="usr.id">
+                    {{usr.login}} {{usr.id == ticket.ownerId ? ' (You)' : null}}
+                </option>
+            </select>
+        </div>
+        <div class="w-100"></div>
+
+        <!-- TICKETIN ONCELIGININ SECILDIGI KISIM -->
+        <div class="form-group col-md-10 col-sm-12 ">
+            <label class="form-title">Priority</label>
+            <select class="form-control" formControlName="priority">
+                <option [value]="priority.Medium">{{priority.Medium}}</option>
+                <option [value]="priority.High">{{priority.High}}</option>
+                <option [value]="priority.Low">{{priority.Low}}</option>
+            </select>
+        </div>
+        <div class="w-100"></div>
+
+        <!-- TICKET ICIN KONU GIRILEN KISIM -->
+        <div class="col-md-10 col-sm-12 ">
+            <label class="form-title">Subject</label>
+            <input #subject type="text" class="form-control is-invalid" placeholder="Type Subject"
+                   [class.is-valid]="editTicketForm.get('subject').valid"
+                   [class.is-invalid]="editTicketForm.get('subject').invalid"
+                   (change)="editTicketForm.get('subject').setValue(subject.value.trim())"
+                   formControlName="subject">
+            <div class="alert alert-danger alert-validation"
+                 *ngIf="editTicketForm.get('subject').invalid && editTicketForm.get('subject').touched">
+                Subject is required
+            </div>
+        </div>
+        <div class="w-100"></div>
+
+        <!-- TICKET ICIN ACIKLAMA GIRILEN KISIM -->
+        <div class="col-md-10 col-sm-12 ">
+            <label class="form-title pt-3">Description</label>
+            <textarea #txtarea autosize class="form-control"
+                      [class.is-valid]="editTicketForm.get('description').valid"
+                      [class.is-invalid]="editTicketForm.get('description').invalid"
+                      placeholder="Please describe about your issue"
+                      (change)="editTicketForm.get('description').setValue(txtarea.value.trim())"
+                      formControlName="description"></textarea>
+            <div class="alert alert-danger alert-validation"
+                 *ngIf="editTicketForm.get('description').invalid && editTicketForm.get('description').touched">
+                <span *ngIf="editTicketForm.get('description').errors.required">Description is required</span>
+                <span class="justify-content-between d-flex"
+                      *ngIf="editTicketForm.get('description').errors.minlength">
+                    Min 10 character
+                    <span class="text-right">
+                        <span style="font-weight: bold">{{txtarea.value.length}}</span>/10
+                    </span>
+                </span>
+            </div>
+        </div>
+        <div class="w-100"></div>
+
+        <!-- DUZENLEMELERIN ONAYLANDIGI EDIT TICKET BUTONU -->
+        <div class="col-md-10 col-sm-12 pt-2 justify-content-center d-flex">
+            <button type="submit" class="btnn btn-green" style="max-width:100%">Update</button>
+        </div>
+    </div>
+</form>
+

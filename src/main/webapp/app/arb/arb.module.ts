@@ -17,6 +17,7 @@ import { NavbarComponent } from './layouts/navbar/navbar.component';
 import { NgbPaginationModule } from '@ng-bootstrap/ng-bootstrap';
 import { NgSelectModule } from '@ng-select/ng-select';
 import { TextareaAutosizeModule } from 'ngx-textarea-autosize';
+import { UpdateTicketComponent } from './ticket/update-ticket/update-ticket.component';
 
 @NgModule({
   imports: [
@@ -38,7 +39,8 @@ import { TextareaAutosizeModule } from 'ngx-textarea-autosize';
     TicketDetailComponent,
     CreateCommentComponent,
     LeftMenuComponent,
-    NavbarComponent
+    NavbarComponent,
+    UpdateTicketComponent
   ],
   exports: [LeftMenuComponent, NavbarComponent],
   providers: [

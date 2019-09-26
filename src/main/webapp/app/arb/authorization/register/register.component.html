@@ -1,79 +1,75 @@
-
-        <form [formGroup]="registerForm" (ngSubmit)="onSubmit()">
-            <div class="container pt-3 mt-5">
-                <div class="row align-items-center justify-content-center ">
-                    <div class="col-lg-8 col-md-10 pt-3 title">
-                        <p>Please fill area to register</p>
-                    </div>
-                    <div class="col-lg-8 col-md-10 pt-3">
-                        <input type="email" class="form-control" id="login" name="login"
-                               formControlName="login" placeholder="Mail">
-                        {{registerForm.get('login').invalid}}
-                        <div class="p-2"
-                             *ngIf="registerForm.get('login').invalid && (registerForm.get('login').dirty || registerForm.get('login').touched)">
-                            <span class="form-text text-danger" *ngIf="registerForm.get('login').errors.required">
-                                Email is required.
-                            </span>
-                            <span class="form-text text-danger" *ngIf="registerForm.get('login').errors.email">
-                                Email is invalid.
-                            </span>
-                            <span class="form-text text-danger" *ngIf="registerForm.get('login').errors.minlength">
-                                Email is required to be at least 5 character.
-                            </span>
-                            <span class="form-text text-danger" *ngIf="registerForm.get('login').errors.maxlength">
-                                Email is required to be max. 50 character.
-                            </span>
-                        </div>
-                        <span class="form-text text-danger" *ngIf="userExist"> Email is already used ! </span>
-                    </div>
-                    <div class="w-100"></div>
-                    <div class="col-lg-8 col-md-10 pt-3">
-                        <input type="password" class="form-control" id="password" name="password"
-                               formControlName="password" placeholder="Password">
-                        <div class="p-2 m-1"
-                             *ngIf="registerForm.get('password').invalid && (registerForm.get('password').dirty || registerForm.get('password').touched)">
-                            <span class="form-text text-danger" *ngIf="registerForm.get('password').errors.required">
-                                Password is required.
-                            </span>
-                            <span class="form-text text-danger" *ngIf="registerForm.get('password').errors.minlength">
-                                Password is required to be at least 4 character.
-                            </span>
-                            <span class="form-text text-danger" *ngIf="registerForm.get('password').errors.maxlength">
-                                Password is required to be max. 100 character.
-                            </span>
-                        </div>
-                    </div>
-                    <div class="w-100"></div>
-                    <div class="col-lg-8 col-md-10 pt-3">
-                        <input type="password" class="form-control" id="confirmPassword" name="confirmPassword"
-                               formControlName="confirmPassword" placeholder="Confirm Password">
-                        <div class="p-2"
-                             *ngIf="registerForm.get('confirmPassword').invalid && (registerForm.get('confirmPassword').dirty || registerForm.get('confirmPassword').touched)">
-                            <span class="form-text text-danger"
-                                  *ngIf="registerForm.get('confirmPassword').errors.required">Confirm password is required </span>
-                        </div>
-                        <div class="p-2"
-                             *ngIf="registerForm.hasError('passwordMatch') && registerForm.get('confirmPassword').touched">
-                            <span class="form-text text-danger">Password don't match! </span>
-                        </div>
-                    </div>
-                    <div class="w-100"></div>
-                    <div class="col-lg-8 col-md-10 pt-3 justify-content-center d-flex">
-                        <button type="submit" class="btnn btn-green" [disabled]="registerForm.invalid">Signup</button>
-                    </div>
-                    <div class="col-lg-8 col-md-10 pt-3 justify-content-center d-flex">
-                        <h4 style="color:black">
-                            or
-                        </h4>
-                    </div>
-                    <div class="col-lg-8 col-md-10 pt-3 justify-content-center d-flex">
-                        <a routerLink="/arb/login" class="text-link">Login</a>
-                    </div>
-
-                    <div class="alert alert-success mt-3" *ngIf="registerSuccess">
-                        <strong>Registration saved!</strong>
-                    </div>
-
+<form [formGroup]="registerForm" (ngSubmit)="onSubmit()">
+    <div class="container pt-3 mt-5">
+        <div class="row align-items-center justify-content-center ">
+            <div class="col-lg-8 col-md-10 pt-3 title">
+                <p>Please fill area to register</p>
+            </div>
+            <div class="col-lg-8 col-md-10 pt-3">
+                <input type="email" class="form-control" id="login" name="login"
+                       formControlName="login" placeholder="Mail">
+                <div class="alert alert-danger alert-validation"
+                     *ngIf="registerForm.get('login').invalid && registerForm.get('login').touched">
+                    <span *ngIf="registerForm.get('login').errors.required">
+                                Email is required.</span>
+                    <span *ngIf="registerForm.get('login').errors.email">
+                                Email is invalid.</span>
+                    <span *ngIf="registerForm.get('login').errors.minlength">
+                                Email is required to be at least 5 character.</span>
+                    <span *ngIf="registerForm.get('login').errors.maxlength">
+                                Email is required to be max. 50 character.</span>
+                </div>
+                <div class="alert alert-danger alert-validation" *ngIf="userExist">
+                    Email is already used !
                 </div>
             </div>
-        </form>
+            <div class="w-100"></div>
+            <div class="col-lg-8 col-md-10 pt-3">
+                <input type="password" class="form-control" id="password" name="password"
+                       formControlName="password" placeholder="Password">
+                <div class="alert alert-danger alert-validation"
+                     *ngIf="registerForm.get('password').invalid && registerForm.get('password').touched">
+                    <span *ngIf="registerForm.get('password').errors.required">
+                                Password is required.
+                            </span>
+                    <span *ngIf="registerForm.get('password').errors.minlength">
+                                Password is required to be at least 4 character.
+                            </span>
+                    <span *ngIf="registerForm.get('password').errors.maxlength">
+                                Password is required to be max. 100 character.
+                            </span>
+                </div>
+            </div>
+            <div class="w-100"></div>
+            <div class="col-lg-8 col-md-10 pt-3">
+                <input type="password" class="form-control" id="confirmPassword" name="confirmPassword"
+                       formControlName="confirmPassword" placeholder="Confirm Password">
+                <div class="alert alert-danger alert-validation"
+                     *ngIf="registerForm.get('confirmPassword').invalid && registerForm.get('confirmPassword').touched">
+                    <span
+                        *ngIf="registerForm.get('confirmPassword').errors.required">Confirm password is required </span>
+                </div>
+                <div class="alert alert-danger alert-validation"
+                     *ngIf="registerForm.hasError('passwordMatch') && registerForm.get('confirmPassword').touched">
+                    <span>Password don't match! </span>
+                </div>
+            </div>
+            <div class="w-100"></div>
+            <div class="col-lg-8 col-md-10 pt-3 justify-content-center d-flex">
+                <button type="submit" class="btnn btn-green" [disabled]="registerForm.invalid">Signup</button>
+            </div>
+            <div class="col-lg-8 col-md-10 pt-3 justify-content-center d-flex">
+                <h4 style="color:black">
+                    or
+                </h4>
+            </div>
+            <div class="col-lg-8 col-md-10 pt-3 justify-content-center d-flex">
+                <a routerLink="/arb/login" class="text-link">Login</a>
+            </div>
+
+            <div class="alert alert-success mt-3" *ngIf="registerSuccess">
+                <strong>Registration saved!</strong>
+            </div>
+
+        </div>
+    </div>
+</form>

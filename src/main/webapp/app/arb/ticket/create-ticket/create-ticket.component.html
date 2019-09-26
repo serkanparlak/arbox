@@ -29,7 +29,8 @@
 
             <select class="form-control" formControlName="assigneeId" (change)="assigneeSelectError = false">
                 <option value="null" selected>**Please select</option>
-                <option *ngFor="let user of users" [value]="user.id">{{user.login}}</option>
+                <option *ngFor="let user of users"
+                        [value]="user.id">{{user.login}}</option>
             </select>
             <div class="alert alert-danger alert-validation"
                  *ngIf="assigneeSelectError">

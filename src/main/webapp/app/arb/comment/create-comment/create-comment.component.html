@@ -12,7 +12,7 @@
     </div>
     <div class="justify-content-end d-flex mt-3">
         <div *ngIf="iSolveBtnActive">
-            <button class="btnn btn-black" type="button"
+            <button class="btnn btn-black" type="button" *ngIf="doIhaveAuthorityToResolve"
                     (click)="iSolveBtnActive=!iSolveBtnActive">Solve & Close
             </button>
             <button class="btnn btn-green ml-2" type="submit" (click)="createComment()">Post Answer</button>

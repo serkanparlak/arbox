@@ -13,6 +13,7 @@ import { ArbTicket } from 'app/arb/models/ticket.model';
 export class CreateCommentComponent implements OnInit {
   iSolveBtnActive = true;
   @Input() ticketId: number;
+  @Input() doIhaveAuthorityToResolve: any;
   @Output() commentCreated = new EventEmitter<ArbComment>();
   createCommentForm: FormGroup;
 
@@ -25,7 +26,7 @@ export class CreateCommentComponent implements OnInit {
   }
 
   createComment(isSolution = false) {
-    if (this.createCommentForm.invalid) {
+    if (!isSolution && this.createCommentForm.invalid) {
       return;
     }
     const comment = new ArbComment();

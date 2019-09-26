@@ -179,9 +179,6 @@ public class ArbTicketResource {
         return ResponseEntity.noContent().headers(HeaderUtil.createEntityDeletionAlert(applicationName, true, ENTITY_NAME, id.toString())).build();
     }
 
-
-
-
     /**
      * {@code GET  /arb-tickets/vm} : get all the arbTickets.
      *

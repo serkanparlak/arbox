@@ -1,7 +1,8 @@
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { TicketService } from 'app/arb/ticket/ticket.service';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { ArbTicket, Priority } from 'app/arb/models/ticket.model';
+import { CommentService } from 'app/arb/comment/comment.service';
 
 @Component({
   selector: 'jhi-ticket-detail',
@@ -11,10 +12,15 @@ import { ArbTicket, Priority } from 'app/arb/models/ticket.model';
 export class TicketDetailComponent implements OnInit {
   ticket: ArbTicket;
   priorityType = Priority;
-  @ViewChild('removeButton', { static: true }) removeButton: ElementRef<HTMLButtonElement>;
-  @ViewChild('deleteButton', { static: true }) deleteButton: ElementRef<HTMLButtonElement>;
+  @ViewChild('removeButton', { static: false }) removeButton: ElementRef<HTMLButtonElement>;
+  @ViewChild('deleteButton', { static: false }) deleteButton: ElementRef<HTMLButtonElement>;
 
-  constructor(private ticketService: TicketService, private route: ActivatedRoute) {}
+  constructor(
+    private ticketService: TicketService,
+    private route: ActivatedRoute,
+    private router: Router,
+    private commentService: CommentService
+  ) {}
 
   ngOnInit() {
     const id = this.route.snapshot.params['id'];
@@ -40,12 +46,25 @@ export class TicketDetailComponent implements OnInit {
   }
 
   onRemoveConfirm() {
-    alert('TODO: Deleted work');
+    this.commentService.deleteCommentByTicketId(this.ticket.id).subscribe(
+      res => {
+        this.ticketService.deleteTicketById(this.ticket.id).subscribe(
+          res2 => {
+            this.router.navigate(['arb/ticket']);
+          },
+          err => console.log('Ticket Delete Error : ' + err)
+        );
+      },
+      err => console.log('Comment Delete Error' + err)
+    );
   }
 
   solvedTicket(ticket: ArbTicket) {
-    this.ticketService.updateTicket(ticket).subscribe(res => {
-      console.log(res);
-    });
+    this.ticketService.updateTicket(ticket).subscribe(
+      res => {
+        console.log(res);
+      },
+      err => console.log(err)
+    );
   }
 }

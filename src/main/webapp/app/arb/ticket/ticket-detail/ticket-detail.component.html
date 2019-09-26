@@ -53,7 +53,7 @@
             </div>
         </div>
 
-        <div class="row mt-2" id="edit_remove_box">
+        <div class="row mt-2" *ngIf="ticket?.ownerId === ticketService.account?.id">
             <div class="col-md-9 offset-md-3 col-sm-12">
                 <button class="btnn-sm" style="background-color: cadetblue"
                 routerLink="/arb/ticket/edit/{{ticket?.id}}">

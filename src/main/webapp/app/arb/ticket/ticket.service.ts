@@ -1,7 +1,7 @@
 import { EventEmitter, Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders, HttpParams, HttpResponse } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { IArbTicket } from 'app/arb/models/ticket.model';
+import { ArbTicket, IArbTicket } from 'app/arb/models/ticket.model';
 import { Account, AccountService, AuthServerProvider } from 'app/core';
 import * as moment from 'moment';
 import { map } from 'rxjs/operators';
@@ -76,6 +76,10 @@ export class TicketService {
 
   updateTicket(ticket: IArbTicket): Observable<HttpResponse<IArbTicket>> {
     return this.http.put<IArbTicket>(this.apiTicketUrl, ticket, { headers: this.authHeader, observe: 'response' });
+  }
+
+  deleteTicketById(id: number): Observable<any> {
+    return this.http.delete(`${this.apiTicketUrl}/${id}`, { headers: this.authHeader });
   }
 
   // date optimization from client

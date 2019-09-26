@@ -23,11 +23,18 @@ export class CommentService {
   }
 
   getAllCommentByTicketId(tId: number): Observable<HttpResponse<ArbComment[]>> {
-    return this.http.get<ArbComment[]>(`${this.apiCommentBaseUrl}/:${tId}`, { headers: this.authHeader, observe: 'response' });
+    return this.http.get<ArbComment[]>(`${this.apiCommentBaseUrl}/:${tId}`, {
+      headers: this.authHeader,
+      observe: 'response'
+    });
   }
 
   addComment(data: ArbComment): Observable<ArbComment> {
     data.ownerId = this.account.id;
     return this.http.post(this.apiCommentBaseUrl, data, { headers: this.authHeader });
+  }
+
+  deleteCommentByTicketId(tId: number) {
+    return this.http.delete(this.apiCommentBaseUrl + '-byticketid/' + tId, { headers: this.authHeader });
   }
 }
