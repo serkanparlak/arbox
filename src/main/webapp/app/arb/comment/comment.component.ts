@@ -34,6 +34,8 @@ export class CommentComponent implements OnInit {
       this.solveTicket.emit(this.ticket);
     }
     this.comments.push(comment);
-    this.lastComment.nativeElement.scrollIntoView({ behavior: 'smooth' });
+    setTimeout(() => {
+      this.lastComment.nativeElement.scrollIntoView({ behavior: 'smooth' });
+    }, 0);
   }
 }

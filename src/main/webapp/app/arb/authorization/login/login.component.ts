@@ -1,4 +1,4 @@
-import { Component, EventEmitter, OnInit, Output } from '@angular/core';
+import { Component } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { LoginService } from 'app/core';
 import { Router } from '@angular/router';
@@ -8,12 +8,10 @@ import { Router } from '@angular/router';
   templateUrl: './login.component.html',
   styleUrls: ['../../arb.component.scss']
 })
-export class LoginComponent implements OnInit {
+export class LoginComponent {
   authenticationError: boolean;
 
   constructor(private loginService: LoginService, private router: Router) {}
-
-  ngOnInit() {}
 
   onSubmit(loginForm: NgForm) {
     this.authenticationError = false;

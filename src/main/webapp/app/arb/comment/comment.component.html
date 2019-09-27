@@ -1,4 +1,5 @@
 <jhi-create-comment *ngIf="ticket?.state" [ticketId]="ticket.id"
+                    [doIhaveAuthorityToResolve]="ticket.ownerId === commentService.account.id || ticket.assigneeId === commentService.account.id"
                     (commentCreated)="commentCreated($event)"></jhi-create-comment>
 
 <div class="container">
