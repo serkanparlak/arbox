@@ -16,8 +16,9 @@
 
 <ng-template #arb>
     <div class="container">
-<!--        <div class="row" *ngIf="loginService.accountService.isAuthenticated(); else notAuthenticate">-->
-        <div class="row" *ngIf="isAuthenticate(); else notAuthenticate">
+        <!--        <div class="row" *ngIf="loginService.accountService.isAuthenticated(); else notAuthenticate">-->
+        <!--        <div class="row" *ngIf="isAuthenticate; else notAuthenticate">-->
+        <div class="row" *ngIf="isAuthenticate else isLogout">
             <div class="col-md-12 col-sm-12 mt-5 mb-4">
                 <jhi-arb-navbar></jhi-arb-navbar>
             </div>
@@ -28,7 +29,7 @@
                 <router-outlet></router-outlet>
             </div>
         </div>
-        <ng-template #notAuthenticate>
+        <ng-template #isLogout>
             <router-outlet></router-outlet>
         </ng-template>
     </div>

@@ -10,12 +10,7 @@ import { AuthServerProvider, JhiLanguageHelper, LoginService } from 'app/core';
 export class JhiMainComponent implements OnInit {
   current_url: string;
   adminIsActive = true; // admin or blank // blank : arb interface
-  constructor(
-    private jhiLanguageHelper: JhiLanguageHelper,
-    private router: Router,
-    // private loginService: LoginService,
-    private auth: AuthServerProvider
-  ) {}
+  constructor(private jhiLanguageHelper: JhiLanguageHelper, private router: Router, private loginService: LoginService) {}
 
   private getPageTitle(routeSnapshot: ActivatedRouteSnapshot) {
     let title: string = routeSnapshot.data && routeSnapshot.data['pageTitle'] ? routeSnapshot.data['pageTitle'] : 'arboxApp';
@@ -45,10 +40,8 @@ export class JhiMainComponent implements OnInit {
     });
   }
 
-  isAuthenticate(): boolean {
-    return this.auth.getToken() !== null;
-
-    // const auth = this.loginService.accountService.isAuthenticated();
-    // return auth;
+  get isAuthenticate(): boolean {
+    // const token = this.auth.getToken();
+    return this.loginService.accountService.isAuthenticated();
   }
 }

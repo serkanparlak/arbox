@@ -1,9 +1,9 @@
-
 <div class="row text-white" id="const-ticket-detail">
     <div class="col-12 pb-3">
         <div class="row mt-2">
             <div class="col-md-3 col-sm-12">
-                <h2 style="display: inline-block; float: right" *ngIf="ticket && !ticket.state"><span class="badge badge-dark br-30">CLOSED</span></h2>
+                <h2 style="display: inline-block; float: right" *ngIf="ticket && !ticket.state"><span
+                    class="badge badge-dark br-30">CLOSED</span></h2>
             </div>
             <div class="col-md-9 col-sm-12">
                 <h1 class="font-weight-bold" id="ticket_subject">
@@ -48,7 +48,8 @@
             </div>
             <div class="col-md-9 col-sm-12 ">
                 <p class="text-justify" id="ticket_description">
-                    {{ticket?.description}}
+                    {{ticket?.description }}
+                    <!--{{ticket?.description | shorten:50 }}-->
                 </p>
             </div>
         </div>
@@ -56,7 +57,7 @@
         <div class="row mt-2" *ngIf="ticket?.ownerId === ticketService.account?.id">
             <div class="col-md-9 offset-md-3 col-sm-12">
                 <button class="btnn-sm" style="background-color: cadetblue"
-                routerLink="/arb/ticket/edit/{{ticket?.id}}">
+                        routerLink="/arb/ticket/edit/{{ticket?.id}}">
                     Edit
                 </button>
                 <button class="btnn-sm ml-3" style="background-color: tomato" #removeButton

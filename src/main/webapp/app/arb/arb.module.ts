@@ -18,6 +18,8 @@ import { NgbPaginationModule } from '@ng-bootstrap/ng-bootstrap';
 import { NgSelectModule } from '@ng-select/ng-select';
 import { TextareaAutosizeModule } from 'ngx-textarea-autosize';
 import { UpdateTicketComponent } from './ticket/update-ticket/update-ticket.component';
+import { ShortenPipe } from 'app/arb/ticket/ticket-detail/shorten.pipe';
+import { FilterPipe } from './ticket/filter.pipe';
 
 @NgModule({
   imports: [
@@ -40,7 +42,9 @@ import { UpdateTicketComponent } from './ticket/update-ticket/update-ticket.comp
     CreateCommentComponent,
     LeftMenuComponent,
     NavbarComponent,
-    UpdateTicketComponent
+    UpdateTicketComponent,
+    ShortenPipe,
+    FilterPipe
   ],
   exports: [LeftMenuComponent, NavbarComponent],
   providers: [

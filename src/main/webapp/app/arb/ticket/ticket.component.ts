@@ -18,6 +18,7 @@ export class TicketComponent implements OnInit {
   predicate: any;
   reverse: boolean;
   links: any;
+  filterElement: any;
 
   activeLinkName: string;
   activeFilterType: FilterType;

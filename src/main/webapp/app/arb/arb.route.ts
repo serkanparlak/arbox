@@ -1,5 +1,4 @@
 import { Routes } from '@angular/router';
-import { comment_routes } from 'app/arb/comment/comment.route';
 import { ticket_routes } from 'app/arb/ticket/ticket.route';
 import { authorization_routes } from 'app/arb/authorization/authorization.route';
 import { AuthGuardService } from 'app/arb/authorization/auth-guard.service';
