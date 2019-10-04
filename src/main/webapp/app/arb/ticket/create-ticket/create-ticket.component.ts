@@ -5,11 +5,33 @@ import { UserService } from 'app/arb/authorization/user.service';
 import { ArbUser } from 'app/arb/models/user.model';
 import { TicketService } from 'app/arb/ticket/ticket.service';
 import { HttpErrorResponse, HttpResponse } from '@angular/common/http';
+import { animate, state, style, transition, trigger } from '@angular/animations';
 
 @Component({
   selector: 'jhi-create-ticket',
   templateUrl: './create-ticket.component.html',
-  styleUrls: ['./create-ticket.component.scss', '../../arb.component.scss']
+  styleUrls: ['./create-ticket.component.scss', '../../arb.component.scss'],
+  animations: [
+    trigger('alert', [
+      state(
+        'in',
+        style({
+          opacity: 1,
+          marginBottom: '-22px',
+          transform: 'translateY(0)'
+        })
+      ),
+      state(
+        'out',
+        style({
+          opacity: 0,
+          marginBottom: '-65px',
+          transform: 'translateY(-15px)'
+        })
+      ),
+      transition('in <=> out', animate(300))
+    ])
+  ]
 })
 export class CreateTicketComponent implements OnInit {
   priority = Priority;
@@ -18,6 +40,7 @@ export class CreateTicketComponent implements OnInit {
   createdNewTicket: IArbTicket;
   errorCreateNewTicket: HttpErrorResponse;
   assigneeSelectError: boolean;
+  buttonIsClicked: boolean;
 
   constructor(private fb: FormBuilder, private userService: UserService, private ticketService: TicketService) {}
 

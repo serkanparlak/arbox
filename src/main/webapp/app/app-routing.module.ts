@@ -11,11 +11,13 @@ const LAYOUT_ROUTES = [navbarRoute, ...errorRoute];
       [
         {
           path: 'admin',
-          loadChildren: () => import('./admin/admin.module').then(m => m.ArboxAdminModule)
+          // loadChildren: () => import('./admin/admin.module').then(m => m.ArboxAdminModule)
+          loadChildren: './admin/admin.module#ArboxAdminModule'
         },
         {
           path: 'arb',
-          loadChildren: () => import('./arb/arb.module').then(m => m.ArbModule)
+          // loadChildren: () => import('./arb/arb.module').then(m => m.ArbModule)
+          loadChildren: './arb/arb.module#ArbModule'
         },
         ...LAYOUT_ROUTES
       ],

@@ -20,6 +20,7 @@ import { TextareaAutosizeModule } from 'ngx-textarea-autosize';
 import { UpdateTicketComponent } from './ticket/update-ticket/update-ticket.component';
 import { ShortenPipe } from 'app/arb/ticket/ticket-detail/shorten.pipe';
 import { FilterPipe } from './ticket/filter.pipe';
+import { TicketDirective } from './ticket/ticket.directive';
 
 @NgModule({
   imports: [
@@ -44,7 +45,8 @@ import { FilterPipe } from './ticket/filter.pipe';
     NavbarComponent,
     UpdateTicketComponent,
     ShortenPipe,
-    FilterPipe
+    FilterPipe,
+    TicketDirective
   ],
   exports: [LeftMenuComponent, NavbarComponent],
   providers: [

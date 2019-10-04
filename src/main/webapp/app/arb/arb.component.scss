@@ -127,7 +127,7 @@ select.form-control:focus {
   color: #222;
   font-family: 'Poppins';
   font-size: 18px;
-  transition: 0.3s;
+  border-left: 1px solid;
 }
 
 .form-control:hover {
@@ -414,15 +414,18 @@ textarea.form-control:focus {
 
 .img-logo {
   width: 35%;
-  margin-top: -28px;
+  margin-top: -33px;
 }
 
 .alert-validation {
-  top: -25px;
+  opacity: 0;
+  top: -22px;
   padding-top: 30px;
   z-index: -5;
   border-bottom-left-radius: 30px;
   border-bottom-right-radius: 30px;
+  margin-bottom: -65px;
+  transition: 0.3s;
 }
 
 @media only screen and (max-width: 600px) {

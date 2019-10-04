@@ -1,7 +1,7 @@
 import { EventEmitter, Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders, HttpParams, HttpResponse } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { ArbTicket, IArbTicket } from 'app/arb/models/ticket.model';
+import { IArbTicket } from 'app/arb/models/ticket.model';
 import { Account, AccountService, AuthServerProvider } from 'app/core';
 import * as moment from 'moment';
 import { map } from 'rxjs/operators';

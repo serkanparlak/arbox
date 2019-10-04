@@ -11,19 +11,21 @@
         Please type anything..
     </div>
     <div class="justify-content-end d-flex mt-3">
-        <div *ngIf="iSolveBtnActive">
+        <div [@mainBtnGroup]="iSolveBtnActive ? 'show' : 'hide'">
             <button class="btnn btn-black" type="button" *ngIf="doIhaveAuthorityToResolve"
-                    (click)="iSolveBtnActive=!iSolveBtnActive">Solve & Close
+                    (click)="onSolveFirst()">Solve & Close
             </button>
             <button class="btnn btn-green ml-2" type="submit" (click)="createComment()">Post Answer</button>
         </div>
 
-        <div *ngIf="!iSolveBtnActive">
+        <!--<div *ngIf="!iSolveBtnActive">-->
+        <div [@solveBtnAnimate]="solveBtnState">
             <button class="btnn btn-black"
-                    (click)="iSolveBtnActive=!iSolveBtnActive">
+                    (click)="onSolveCancel()">
                 Cancel
             </button>
-            <button class="btnn btn-green" style="background-color: tomato" (click)="onSolveComment()" title="I am sure!">
+            <button class="btnn btn-green" style="background-color: tomato" (click)="onSolveComment()"
+                    title="I am sure!">
                 I am sure!
             </button>
         </div>

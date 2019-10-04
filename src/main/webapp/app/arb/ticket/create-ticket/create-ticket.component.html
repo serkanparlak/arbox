@@ -33,7 +33,7 @@
                         [value]="user.id">{{user.login}}</option>
             </select>
             <div class="alert alert-danger alert-validation"
-                 *ngIf="assigneeSelectError">
+                 [@alert]="assigneeSelectError ? 'in' : 'out'">
                 Please select a assignee user
             </div>
         </div>
@@ -57,7 +57,7 @@
                    formControlName="subject"
                    (change)="createTicketForm.get('subject').setValue(sub.value.trim())">
             <div class="alert alert-danger alert-validation"
-                 *ngIf="createTicketForm.get('subject').invalid && createTicketForm.get('subject').touched">
+                 [@alert]="createTicketForm.get('subject').invalid && (createTicketForm.get('subject').touched || buttonIsClicked) ? 'in' : 'out'">
                 Subject is required
             </div>
         </div>
@@ -70,10 +70,12 @@
                       formControlName="description" #txtarea
                       (change)="createTicketForm.get('description').setValue(txtarea.value.trim())"></textarea>
             <div class="alert alert-danger alert-validation"
-                 *ngIf="createTicketForm.get('description').invalid && createTicketForm.get('description').touched">
-                <span *ngIf="createTicketForm.get('description').errors.required">Description is required</span>
+                 [@alert]="createTicketForm.get('description').invalid && (createTicketForm.get('description').touched || buttonIsClicked)
+                 ? 'in'
+                 : 'out'">
+                <span *ngIf="createTicketForm.get('description').errors?.required">Description is required</span>
                 <span class="justify-content-between d-flex"
-                      *ngIf="createTicketForm.get('description').errors.minlength">
+                      *ngIf="createTicketForm.get('description').errors?.minlength">
                     Min 10 character
                     <span class="text-right">
                         <span style="font-weight: bold">{{txtarea.value.length}}</span>/10
@@ -84,7 +86,7 @@
         <div class="w-100"></div>
 
         <div class="col-12 col-md-10 pt-3 justify-content-center d-flex">
-            <button type="submit" class="btnn btn-green">Create Ticket</button>
+            <button type="submit" class="btnn btn-green" (click)="buttonIsClicked = true">Create Ticket</button>
         </div>
     </div>
 </form>
