@@ -1,8 +1,12 @@
-<p jhiTicket class="lead" style="transition: 0.5s">{{activeLinkName}}</p>
+<!--<div style="position: absolute; left: 0; top: 0; width: 100px; height: 100px; " [@bounce]="deneme"-->
+<!--     (@bounce.done)="deneme = '0'+ deneme "></div>-->
+
+
+<p class="lead" [class.header-animate]="animateChanger">{{activeLinkName}}</p>
 <input type="text" placeholder="Filter by subject (only this list)" class="form-control" [(ngModel)]="filterElement">
 <table class="table" id="ticket-list-table">
     <thead>
-    <tr >
+    <tr>
         <th class="first-left" scope="col"></th>
         <th scope="col">Subject</th>
         <th scope="col">Reporter</th>
@@ -13,7 +17,7 @@
     </thead>
     <tbody>
     <!--<tr *ngFor="let tick of ticketList; index as i;">-->
-    <tr *ngFor="let tick of ticketList | filter:filterElement:'subject'; index as i;">
+    <tr [@tbody] *ngFor="let tick of ticketList | filter:filterElement:'subject'; index as i;">
         <td>{{ (page - 1) * itemsPerPage + i + 1 }}</td>
         <td class="td-for-link" data-label="Subject">
             <a routerLink="/arb/ticket/detail/{{tick.id}}">{{tick.subject}}</a>

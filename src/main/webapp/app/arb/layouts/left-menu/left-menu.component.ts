@@ -1,9 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute, Params, Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { FilterType, TicketService } from 'app/arb/ticket/ticket.service';
-import { HttpParams } from '@angular/common/http';
-
-export enum FilterTypeName {}
 
 @Component({
   selector: 'jhi-left-menu',

@@ -128,6 +128,8 @@ select.form-control:focus {
   font-family: 'Poppins';
   font-size: 18px;
   border-left: 1px solid;
+  position: relative;
+  z-index: 5;
 }
 
 .form-control:hover {
@@ -336,6 +338,9 @@ textarea.form-control:focus {
     border-bottom: 3px solid #ddd !important;
     display: block !important;
     margin-bottom: 0.625em !important;
+    background-color: white;
+    border-radius: 30px;
+    padding: 10px;
   }
   table td {
     border-bottom: 1px solid #ddd !important;
@@ -364,6 +369,7 @@ textarea.form-control:focus {
     line-height: 1.846;
     vertical-align: top;
     border-top: 0px !important;
+    background-color: transparent;
   }
 }
 
@@ -419,9 +425,10 @@ textarea.form-control:focus {
 
 .alert-validation {
   opacity: 0;
+  visibility: hidden;
   top: -22px;
   padding-top: 30px;
-  z-index: -5;
+  z-index: 0;
   border-bottom-left-radius: 30px;
   border-bottom-right-radius: 30px;
   margin-bottom: -65px;

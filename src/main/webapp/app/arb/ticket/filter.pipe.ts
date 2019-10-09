@@ -1,10 +1,11 @@
 import { Pipe, PipeTransform } from '@angular/core';
+import { ArbTicket } from 'app/arb/models/ticket.model';
 
 @Pipe({
   name: 'filter'
 })
 export class FilterPipe implements PipeTransform {
-  transform(value: any, filter: string, column?: string): any {
+  transform(value: any, filter: string, column?: string): ArbTicket[] | null {
     if (!value || !filter || filter.trim() === '') {
       return value;
     }

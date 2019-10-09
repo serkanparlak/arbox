@@ -1,33 +1,35 @@
-<h3 class="pl-4">Your Answer</h3>
-<form [formGroup]="createCommentForm">
+<div [@shrinkOut]="ticket?.state ? 'in' : 'out'">
+    <h3 class="pl-4">Your Answer</h3>
+    <form [formGroup]="createCommentForm">
     <textarea autosize
               class="form-control"
               placeholder="Write answer..."
               formControlName="content"
               #txtarea
               (change)="createCommentForm.get('content').setValue(txtarea.value.trim())"></textarea>
-    <div class="alert alert-danger alert-validation"
-         *ngIf="createCommentForm.get('content').invalid && createCommentForm.get('content').touched">
-        Please type anything..
-    </div>
-    <div class="justify-content-end d-flex mt-3">
-        <div [@mainBtnGroup]="iSolveBtnActive ? 'show' : 'hide'">
-            <button class="btnn btn-black" type="button" *ngIf="doIhaveAuthorityToResolve"
-                    (click)="onSolveFirst()">Solve & Close
-            </button>
-            <button class="btnn btn-green ml-2" type="submit" (click)="createComment()">Post Answer</button>
+        <div class="alert alert-danger alert-validation"
+             [class.alert-validation-show]="createCommentForm.get('content').invalid && createCommentForm.get('content').touched">
+            Please type anything..
         </div>
+        <div class="justify-content-end d-flex mt-3">
+            <div [@mainBtnGroup]="iSolveBtnActive ? 'show' : 'hide'">
+                <button class="btnn btn-black" type="button" *ngIf="doIhaveAuthorityToResolve"
+                        (click)="onSolveFirst()">Solve & Close
+                </button>
+                <button class="btnn btn-green ml-2" type="submit" (click)="createComment()">Post Answer</button>
+            </div>
 
-        <!--<div *ngIf="!iSolveBtnActive">-->
-        <div [@solveBtnAnimate]="solveBtnState">
-            <button class="btnn btn-black"
-                    (click)="onSolveCancel()">
-                Cancel
-            </button>
-            <button class="btnn btn-green" style="background-color: tomato" (click)="onSolveComment()"
-                    title="I am sure!">
-                I am sure!
-            </button>
+            <!--<div *ngIf="!iSolveBtnActive">-->
+            <div [@solveBtnAnimate]="solveBtnState" style="margin-left: -252px">
+                <button class="btnn btn-black"
+                        (click)="onSolveCancel()">
+                    Cancel
+                </button>
+                <button class="btnn btn-green" style="background-color: tomato" (click)="onSolveComment()"
+                        title="I am sure!">
+                    I am sure!
+                </button>
+            </div>
         </div>
-    </div>
-</form>
+    </form>
+</div>

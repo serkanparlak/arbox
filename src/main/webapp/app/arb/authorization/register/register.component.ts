@@ -3,7 +3,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Register } from 'app/account';
 import { ConfirmPasswordValidator } from 'app/arb/authorization/authorization.validators';
 import { ArbUser } from 'app/arb/models/user.model';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
   selector: 'jhi-register',

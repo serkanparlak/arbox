@@ -18,7 +18,8 @@ import { animate, state, style, transition, trigger } from '@angular/animations'
         style({
           opacity: 1,
           marginBottom: '-22px',
-          transform: 'translateY(0)'
+          transform: 'translateY(0)',
+          visibility: 'visible'
         })
       ),
       state(
@@ -26,7 +27,8 @@ import { animate, state, style, transition, trigger } from '@angular/animations'
         style({
           opacity: 0,
           marginBottom: '-65px',
-          transform: 'translateY(-15px)'
+          transform: 'translateY(-15px)',
+          visibility: 'hidden'
         })
       ),
       transition('in <=> out', animate(300))

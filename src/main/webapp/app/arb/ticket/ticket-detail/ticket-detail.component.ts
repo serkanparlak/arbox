@@ -14,6 +14,7 @@ export class TicketDetailComponent implements OnInit {
   priorityType = Priority;
   @ViewChild('removeButton', { static: false }) removeButton: ElementRef<HTMLButtonElement>;
   @ViewChild('deleteButton', { static: false }) deleteButton: ElementRef<HTMLButtonElement>;
+  isAnimateRunning: boolean = true;
 
   constructor(
     private ticketService: TicketService,

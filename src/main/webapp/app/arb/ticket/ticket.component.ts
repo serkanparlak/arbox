@@ -1,16 +1,20 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { FilterType, TicketService } from 'app/arb/ticket/ticket.service';
 import { IArbTicket, Priority } from 'app/arb/models/ticket.model';
 import { ActivatedRoute, Router } from '@angular/router';
 import { HttpErrorResponse, HttpHeaders, HttpResponse } from '@angular/common/http';
 import { JhiAlertService, JhiParseLinks } from 'ng-jhipster';
+import { animates } from 'app/arb/ticket/ticket.animations';
 
 @Component({
   selector: 'jhi-arb-ticket',
   templateUrl: './ticket.component.html',
-  styleUrls: ['../arb.component.scss', './ticket.component.scss']
+  styleUrls: ['../arb.component.scss', './ticket.component.scss'],
+  animations: [...animates]
 })
 export class TicketComponent implements OnInit {
+  animateChanger = true;
+
   page: any = 1;
   totalItems: any;
   itemsPerPage: any = 7;
@@ -34,6 +38,7 @@ export class TicketComponent implements OnInit {
     protected jhiAlertService: JhiAlertService
   ) {
     this.route.queryParams.subscribe(data => {
+      this.animateChanger = false;
       if (data.page) {
         this.page = data.page;
         this.previousPage = data.page;
@@ -43,6 +48,9 @@ export class TicketComponent implements OnInit {
       this.activeFilterType = data.filter ? data.filter : FilterType.Unsolved;
       this.activeLinkName = FilterType[this.activeFilterType];
       this.loadAll();
+      setTimeout(() => {
+        this.animateChanger = true;
+      }, 0);
     });
   }
 

@@ -4,6 +4,9 @@ import { CommentService } from 'app/arb/comment/comment.service';
 import { ArbComment } from 'app/arb/models/comment.model';
 import * as moment from 'moment';
 import { animate, state, style, transition, trigger } from '@angular/animations';
+import { ArbTicket } from 'app/arb/models/ticket.model';
+import { delay } from 'rxjs/operators';
+import { async } from 'rxjs/internal/scheduler/async';
 
 @Component({
   selector: 'jhi-create-comment',
@@ -40,25 +43,35 @@ import { animate, state, style, transition, trigger } from '@angular/animations'
       ]),
       transition('cancel => show', [
         style({ display: 'block', opacity: 0, transform: 'scale(0)' }),
-        animate(200, style({ opacity: 1, transform: 'scale(1.5)' })),
-        animate(100)
+        animate(300, style({ opacity: 1, transform: 'scale(1.5)' })),
+        animate(200)
       ]),
       transition('show => cancel', [animate(300, style({ opacity: 0, transform: 'translateX(-100px) scale(0)' }))])
     ]),
 
     trigger('mainBtnGroup', [
-      state('show', style({ display: 'block', opacity: 1 })),
-      state('hide', style({ display: 'none', opacity: 0 })),
-      transition('void => show', [style({ opacity: 0 }), animate(300, style({}))]),
-      transition('show => hide', [style({ position: 'absolute' }), animate(300, style({ opacity: 0 }))]),
-      transition('hide => show', [style({ display: 'block', position: 'relative' }), animate(300, style({ opacity: 1 }))])
+      state('show', style({ visibility: 'visible', opacity: 1 })),
+      state('hide', style({ visibility: 'hidden', opacity: 0 })),
+      transition('void => show', [style({ opacity: 0 }), animate(300)]),
+      transition('show => hide', [animate(300, style({ opacity: 0, transform: 'translateX(-300px)' }))]),
+      transition('hide => show', [
+        style({ visibility: 'visible', opacity: 0, transform: 'translateX(-200px)' }),
+        animate(300, style({ opacity: 1, transform: 'translateX(0)' }))
+      ])
+    ]),
+
+    trigger('shrinkOut', [
+      state('in', style({ height: '*', opacity: 1 })),
+      state('out', style({ height: 0, opacity: 0 })),
+      transition('void <=> *', [style({ height: 0, opacity: 0 }), animate(300)]),
+      transition('in <=> out', [animate(300)])
     ])
   ]
 })
 export class CreateCommentComponent implements OnInit {
   solveBtnState = 'cancel';
   iSolveBtnActive = true;
-  @Input() ticketId: number;
+  @Input() ticket: ArbTicket;
   @Input() doIhaveAuthorityToResolve: any;
   @Output() commentCreated = new EventEmitter<ArbComment>();
   createCommentForm: FormGroup;
@@ -79,7 +92,7 @@ export class CreateCommentComponent implements OnInit {
     comment.isSolution = isSolution;
     comment.date = moment(new Date());
     comment.content = this.createCommentForm.get('content').value;
-    comment.ticketId = this.ticketId;
+    comment.ticketId = this.ticket.id;
 
     this.commentService.addComment(comment).subscribe(c => {
       this.createCommentForm.reset();
@@ -101,6 +114,6 @@ export class CreateCommentComponent implements OnInit {
     this.solveBtnState = 'cancel';
     setTimeout(() => {
       this.iSolveBtnActive = !this.iSolveBtnActive;
-    }, 300);
+    }, 500);
   }
 }

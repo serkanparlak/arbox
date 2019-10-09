@@ -1,0 +1,57 @@
+.box {
+  width: 150px;
+  height: 200px;
+  position: absolute;
+  left: calc(50% - 200px);
+  top: calc(50% - 300px);
+  transform: rotateY(45deg) perspective(0);
+  transform-style: preserve-3d;
+}
+
+.box div {
+  width: 100%;
+  height: 100%;
+  animation: animate 10000ms linear infinite;
+  transform-style: preserve-3d;
+}
+
+.box .degirmen {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(0, #aaa, #ddd, #aaa);
+  border-radius: 30px;
+}
+
+.box .degirmen:nth-child(1) {
+  transform: rotateX(30deg);
+}
+
+.box .degirmen:nth-child(2) {
+  transform: rotateX(60deg);
+}
+
+.box .degirmen:nth-child(3) {
+  transform: rotateX(90deg);
+}
+
+.box .degirmen:nth-child(4) {
+  transform: rotateX(120deg);
+}
+
+.box .degirmen:nth-child(5) {
+  transform: rotateX(150deg);
+}
+
+.box .degirmen:nth-child(6) {
+  transform: rotateX(180deg);
+}
+
+@keyframes animate {
+  0% {
+    transform: rotateX(0);
+  }
+  100% {
+    transform: rotateX(359deg);
+  }
+}

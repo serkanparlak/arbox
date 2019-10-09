@@ -11,3 +11,36 @@ textarea.form-control:focus {
 .btnn-sm {
   transition: 0.5s;
 }
+
+.box {
+  height: 500px;
+  width: 500px;
+  background-color: #fff;
+  position: absolute;
+  animation: boxAnimate 2s linear both infinite;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.yazi {
+  font-size: 50px;
+  font-weight: bold;
+}
+
+.paused {
+  animation-play-state: paused;
+}
+
+.running {
+  animation-play-state: running;
+}
+
+@keyframes boxAnimate {
+  0% {
+    transform: rotateX(0) rotateY(45deg);
+  }
+  100% {
+    transform: rotateX(360deg) rotateY(45deg);
+  }
+}

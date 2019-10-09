@@ -20,8 +20,7 @@ export class TicketDirective implements OnInit {
     this.borderRadius = '5px';
   }
 
-  constructor() // private elRef: ElementRef<HTMLDivElement>
-  {}
+  constructor() {}
 
   ngOnInit(): void {}
 }

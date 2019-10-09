@@ -1,12 +1,12 @@
 import { Component } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { LoginService } from 'app/core';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
   selector: 'jhi-login',
   templateUrl: './login.component.html',
-  styleUrls: ['../../arb.component.scss']
+  styleUrls: ['../../arb.component.scss', './login.component.scss']
 })
 export class LoginComponent {
   authenticationError: boolean;

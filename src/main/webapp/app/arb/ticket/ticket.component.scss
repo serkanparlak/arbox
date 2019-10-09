@@ -2,3 +2,20 @@ b,
 strong {
   font-weight: bold !important;
 }
+
+.header-animate {
+  //animation: header 1s ease;
+  animation-name: header;
+  animation-duration: 0.5s;
+  animation-timing-function: ease;
+  animation-fill-mode: both;
+}
+
+@keyframes header {
+  0% {
+    transform: rotateX(90deg);
+  }
+  100% {
+    transform: rotateX(0);
+  }
+}
