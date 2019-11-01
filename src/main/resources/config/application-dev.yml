@@ -36,9 +36,9 @@ spring:
       indent-output: true
   datasource:
     type: com.zaxxer.hikari.HikariDataSource
-    url: jdbc:postgresql://localhost:5432/arbox_dev
-    username: arbox
-    password: arbox
+    url: jdbc:postgresql://ec2-79-125-126-205.eu-west-1.compute.amazonaws.com:5432/d105ed12vd83df
+    username: vwzhbhbaiwiltm
+    password: 5d8f20df2142e302bdd49bc247d9e8d5bf90dcb24cef5f9c8874822f356f5094
     hikari:
       poolName: Hikari
       auto-commit: false
